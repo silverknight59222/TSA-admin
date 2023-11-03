@@ -11,7 +11,7 @@ import {
   Typography
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
+import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 
@@ -25,7 +25,13 @@ const ButtonError = styled(Button)(
      }
     `
 );
-
+const ButtonTrain = styled(Button)(
+  ({ theme }) => `
+     color: ${theme.palette.success.contrastText};
+     height: 50%;
+     align-items: center;
+    `
+);
 function BulkActions() {
   const [onMenuOpen, menuOpen] = useState<boolean>(false);
   const moreRef = useRef<HTMLButtonElement | null>(null);
@@ -52,6 +58,13 @@ function BulkActions() {
           >
             Delete
           </ButtonError>
+          <ButtonTrain
+            sx={{ ml: 1 }}
+            startIcon={<ModelTrainingIcon />}
+            variant="contained"
+          >
+            Train
+          </ButtonTrain>
         </Box>
         <IconButton
           color="primary"

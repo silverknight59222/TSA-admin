@@ -22,14 +22,21 @@ import {
   MenuItem,
   Typography,
   useTheme,
-  CardHeader
+  CardHeader,
+  Button,
+  InputAdornment,
+  TextField
 } from '@mui/material';
 
 import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import BulkActions from './BulkActions';
+import { styled } from '@mui/material/styles';
 
 interface RecentOrdersTableProps {
   className?: string;
@@ -83,7 +90,13 @@ const applyPagination = (
 ): CryptoOrder[] => {
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
-
+const ButtonTrain = styled(Button)(
+  ({ theme }) => `
+     color: ${theme.palette.success.contrastText};
+     height: 50%;
+     align-items: center;
+    `
+);
 const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
@@ -175,35 +188,68 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   const theme = useTheme();
 
   return (
-    <Card>
+    <Card style={{ marginTop: '8px' }}>
       {selectedBulkActions && (
         <Box flex={1} p={2}>
           <BulkActions />
         </Box>
       )}
       {!selectedBulkActions && (
-        <CardHeader
-          action={
-            <Box width={150}>
-              <FormControl fullWidth variant="outlined">
-                <InputLabel>Status</InputLabel>
-                <Select
-                  value={filters.status || 'all'}
-                  onChange={handleStatusChange}
-                  label="Status"
-                  autoWidth
-                >
-                  {statusOptions.map((statusOption) => (
-                    <MenuItem key={statusOption.id} value={statusOption.id}>
-                      {statusOption.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-          }
-          title="Recent Orders"
-        />
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <TextField
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchTwoToneIcon />
+                  </InputAdornment>
+                )
+              }}
+              placeholder="Search..."
+            />
+            <CardHeader
+              action={
+                <Box width={150}>
+                  <FormControl fullWidth variant="outlined">
+                    <InputLabel>Status</InputLabel>
+                    <Select
+                      value={filters.status || 'all'}
+                      onChange={handleStatusChange}
+                      label="Status"
+                      autoWidth
+                    >
+                      {statusOptions.map((statusOption) => (
+                        <MenuItem key={statusOption.id} value={statusOption.id}>
+                          {statusOption.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Box>
+              }
+              title=""
+            />
+          </Box>
+          <ButtonTrain
+            sx={{ ml: 1 }}
+            startIcon={<ModelTrainingIcon />}
+            variant="contained"
+          >
+            Train
+          </ButtonTrain>
+          <ButtonTrain
+            sx={{ mr: 1 }}
+            startIcon={<AddCircleOutlineIcon />}
+            variant="contained"
+          >
+            ADD
+          </ButtonTrain>
+        </Box>
       )}
       <Divider />
       <TableContainer>
@@ -218,10 +264,10 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                   onChange={handleSelectAllCryptoOrders}
                 />
               </TableCell>
-              <TableCell>Order Details</TableCell>
-              <TableCell>Order ID</TableCell>
-              <TableCell>Source</TableCell>
-              <TableCell align="right">Amount</TableCell>
+              <TableCell>Module Number</TableCell>
+              <TableCell>Session Title</TableCell>
+              <TableCell>Video File - Litmos</TableCell>
+              <TableCell>Doc Link</TableCell>
               <TableCell align="right">Status</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
@@ -257,9 +303,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                     >
                       {cryptoOrder.orderDetails}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {format(cryptoOrder.orderDate, 'MMMM dd yyyy')}
-                    </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography
@@ -282,9 +325,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                     >
                       {cryptoOrder.sourceName}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {cryptoOrder.sourceDesc}
-                    </Typography>
                   </TableCell>
                   <TableCell align="right">
                     <Typography
@@ -295,7 +335,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       noWrap
                     >
                       {cryptoOrder.amountCrypto}
-                      {cryptoOrder.cryptoCurrency}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" noWrap>
                       {numeral(cryptoOrder.amount).format(

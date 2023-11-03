@@ -8,7 +8,7 @@ export interface CryptoOrder {
   orderID: string;
   sourceName: string;
   sourceDesc: string;
-  amountCrypto: number;
+  amountCrypto: String;
   amount: number;
   cryptoCurrency: string;
   currency: string;
