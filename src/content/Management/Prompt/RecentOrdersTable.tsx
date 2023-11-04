@@ -29,7 +29,7 @@ import {
 } from '@mui/material';
 
 import Label from '@/components/Label';
-import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
+import { CryptoOrder, CryptoOrderStatus } from '@/models/data';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
@@ -95,6 +95,16 @@ const ButtonTrain = styled(Button)(
      color: ${theme.palette.success.contrastText};
      height: 50%;
      align-items: center;
+    `
+);
+const ButtonError = styled(Button)(
+  ({ theme }) => `
+     background: ${theme.colors.error.main};
+     color: ${theme.palette.error.contrastText};
+
+     &:hover {
+        background: ${theme.colors.error.dark};
+     }
     `
 );
 const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
@@ -237,16 +247,33 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
               title=""
             />
           </Box>
-          <ButtonTrain startIcon={<ModelTrainingIcon />} variant="contained">
-            Train
-          </ButtonTrain>
-          <ButtonTrain
-            sx={{ mr: 1 }}
-            startIcon={<AddCircleOutlineIcon />}
-            variant="contained"
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
           >
-            ADD
-          </ButtonTrain>
+            <ButtonError
+              sx={{ mr: 1 }}
+              startIcon={<DeleteTwoToneIcon />}
+              variant="contained"
+            >
+              Delete
+            </ButtonError>
+            <ButtonTrain
+              sx={{ mr: 1 }}
+              startIcon={<ModelTrainingIcon />}
+              variant="contained"
+            >
+              Train
+            </ButtonTrain>
+            <ButtonTrain
+              sx={{ mr: 1 }}
+              startIcon={<AddCircleOutlineIcon />}
+              variant="contained"
+            >
+              ADD
+            </ButtonTrain>
+          </Box>
         </Box>
       )}
       <Divider />
