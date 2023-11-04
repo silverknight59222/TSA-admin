@@ -15,7 +15,7 @@ const themeColors = {
   primaryAlt: '#000C57'
 };
 
-const colors = {
+export const colors = {
   gradients: {
     blue1: 'linear-gradient(135deg, #6B73FF 0%, #000DFF 100%)',
     blue2: 'linear-gradient(135deg, #ABDCFF 0%, #0396FF 100%)',
