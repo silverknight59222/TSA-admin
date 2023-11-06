@@ -7,7 +7,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
-        const querys = `SELECT * from train WHERE id = ${query.id} AND is_deleted = FALSE order by id`;
+        const querys = `SELECT * from train WHERE id = ${query.id} order by id`;
         const response = await db.query(querys);
         return res.json(response);
       } catch (error: any) {

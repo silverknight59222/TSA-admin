@@ -57,7 +57,7 @@ const getStatusLabel = (ProgramDataStatus: ProgramDataStatus): JSX.Element => {
       text: 'Completed',
       color: 'success'
     },
-    pending: {
+    null: {
       text: 'Pending',
       color: 'warning'
     },
@@ -66,6 +66,7 @@ const getStatusLabel = (ProgramDataStatus: ProgramDataStatus): JSX.Element => {
       color: 'warning'
     }
   };
+  console.log(ProgramDataStatus);
   const { text, color }: any = map[ProgramDataStatus];
 
   return <Label color={color}>{text}</Label>;
@@ -244,10 +245,11 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         getList();
         if (trainId)
           axios.get(`/api/train/${trainId}`).then((res) => {
+            console.log('train_data', res.data);
             if (res.data[0].status === 'completed')
               successNotification('Training is done.');
           });
-      }, 1000);
+      }, 5000);
       return () => {
         clearTimeout(timer);
       };
@@ -258,7 +260,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
     axios
       .get(`/api/data/${id}`)
       .then((res) => {
-        console.log(res.data);
+        console.log('program_data', res.data);
         setProgramDatas(res.data);
       })
       .catch((error) => console.log('*******err', error.data));

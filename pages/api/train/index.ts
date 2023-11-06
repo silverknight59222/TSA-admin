@@ -10,8 +10,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         const { id, status } = body;
         const query = `UPDATE train SET status=$1 WHERE id = $2`;
         const values = [status, id];
-        const response = await db.query(query, values);
-        return res.json(response);
+        await db.query(query, values);
+        return res.json({ id, status });
       } catch (error: any) {
         return res.status(400).json({ message: error.message });
       }
@@ -30,7 +30,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           await db.query(q, val);
         });
         await Promise.all(promises);
-        const udpate_query = `UPDATE data SET status=training WHERE train_id=${response[0].id}`;
+        const udpate_query = `UPDATE train_history SET status='training' WHERE train_id=${response[0].id}`;
         await db.query(udpate_query);
         return res.json(response);
       } catch (error: any) {
