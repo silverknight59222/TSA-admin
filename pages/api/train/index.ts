@@ -30,7 +30,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           await db.query(q, val);
         });
         await Promise.all(promises);
-        const udpate_query = `UPDATE train_history SET status='training' WHERE train_id=${response[0].id}`;
+        const udpate_query = `UPDATE data SET train_id=${response[0].id} WHERE program_id = ${body.program_id}`;
         await db.query(udpate_query);
         return res.json(response);
       } catch (error: any) {
