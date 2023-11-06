@@ -131,7 +131,6 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
     []
   );
   const [programDatas, setProgramDatas] = useState([]);
-  const selectedBulkActions = selectedprogramDatas.length > 0;
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(5);
   const [filters, setFilters] = useState<Filters>({

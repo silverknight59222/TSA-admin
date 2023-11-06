@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import SidebarLayout from '@/layouts/SidebarLayout';
-import PageHeader from '@/content/Management/Train/PageHeader';
+// import PageHeader from '@/content/Management/Train/PageHeader';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
 import Footer from '@/components/Footer';
 
-import RecentOrders from '@/content/Management/Train/RecentOrders';
+// import RecentOrders from '@/content/Management/Train/RecentOrders';
 
 function ApplicationsTransactions() {
   return (
@@ -13,9 +13,7 @@ function ApplicationsTransactions() {
       <Head>
         <title>Transactions - Applications</title>
       </Head>
-      <PageTitleWrapper>
-        <PageHeader />
-      </PageTitleWrapper>
+      <PageTitleWrapper>{/* <PageHeader /> */}</PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container
@@ -25,7 +23,7 @@ function ApplicationsTransactions() {
           spacing={3}
         >
           <Grid item xs={12}>
-            <RecentOrders />
+            {/* <RecentOrders /> */}
           </Grid>
         </Grid>
       </Container>

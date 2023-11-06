@@ -9,7 +9,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import axios from 'axios';
 function ApplicationsTransactions() {
   const [value, setValue] = React.useState('new');
-  const [data, setData] = React.useState([]);
+  // const [data, setData] = React.useState([]);
   const [programList, setProgramList] = React.useState([]);
   useEffect(() => {
     axios
@@ -23,7 +23,7 @@ function ApplicationsTransactions() {
       .catch((error) => console.log('*******err', error.data));
   }, []);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
   return (

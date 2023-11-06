@@ -1,4 +1,3 @@
-import { Card } from '@mui/material';
 import { CryptoOrder } from '@/models/data';
 import RecentOrdersTable from './RecentOrdersTable';
 import { subDays } from 'date-fns';
