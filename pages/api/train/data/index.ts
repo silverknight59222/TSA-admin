@@ -8,15 +8,19 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     case 'PUT':
       try {
         const {
+          id,
           program_id,
           module_num,
           session_title,
-          video_link,
+          over_goal,
+          learn_obj,
+          video_litmos,
+          video_train,
+          video_implement,
           doc_link,
-          updated_at,
-          id
+          updated_at
         } = body;
-        const query = `UPDATE data SET program_id=${program_id}, module_num='${module_num}', session_title='${session_title}', video_link='${video_link}', doc_link='${doc_link}', updated_at='${updated_at}' WHERE data.id = ${id}`;
+        const query = `UPDATE data SET program_id=${program_id}, module_num='${module_num}', session_title='${session_title}', over_goal='${over_goal}', learn_obj='${learn_obj}', video_litmos='${video_litmos}', video_train='${video_train}', video_implement='${video_implement}', doc_link='${doc_link}', updated_at='${updated_at}' WHERE data.id = ${id}`;
         const response = await db.query(query);
         return res.json(response);
       } catch (error: any) {
@@ -28,18 +32,26 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           program_id,
           module_num,
           session_title,
-          video_link,
+          over_goal,
+          learn_obj,
+          video_litmos,
+          video_train,
+          video_implement,
           doc_link,
           created_at,
           status
         } = body;
         const query =
-          'INSERT INTO data(program_id, module_num, session_title, video_link, doc_link, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *';
+          'INSERT INTO data(program_id, module_num, session_title, over_goal, learn_obj, video_litmos, video_train, video_implement, , doc_link, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
         const values = [
           parseInt(program_id),
           module_num,
           session_title,
-          video_link,
+          over_goal,
+          learn_obj,
+          video_litmos,
+          video_train,
+          video_implement,
           doc_link,
           created_at,
           status

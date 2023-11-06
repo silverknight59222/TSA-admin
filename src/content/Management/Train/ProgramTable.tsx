@@ -60,6 +60,10 @@ const getStatusLabel = (ProgramDataStatus: ProgramDataStatus): JSX.Element => {
     pending: {
       text: 'Pending',
       color: 'warning'
+    },
+    training: {
+      text: 'Training',
+      color: 'warning'
     }
   };
   const { text, color }: any = map[ProgramDataStatus];
@@ -219,7 +223,11 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
   const [addData, setAddData] = useState({
     module_num: '',
     session_title: '',
-    video_link: '',
+    over_goal: '',
+    learn_obj: '',
+    video_litmos: '',
+    video_train: '',
+    video_implement: '',
     doc_link: ''
   });
   const [deleteID, setDeleteID] = useState<string>('0');
@@ -329,7 +337,11 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
               <TableCell align="center">Status</TableCell>
               <TableCell>Module Number</TableCell>
               <TableCell>Session Title</TableCell>
+              <TableCell>Overall goal</TableCell>
+              <TableCell>Learning objectives</TableCell>
               <TableCell>Video File - Litmos</TableCell>
+              <TableCell>Video File - Litmos (Training)</TableCell>
+              <TableCell>Video File - Litmos (Implementation)</TableCell>
               <TableCell>Doc Link</TableCell>
             </TableRow>
           </TableHead>
@@ -398,7 +410,6 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                   <TableCell>
                     <Typography
                       variant="body1"
-                      fontWeight="bold"
                       color="text.primary"
                       gutterBottom
                       noWrap
@@ -409,7 +420,6 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                   <TableCell>
                     <Typography
                       variant="body1"
-                      fontWeight="bold"
                       color="text.primary"
                       gutterBottom
                       noWrap
@@ -420,18 +430,56 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                   <TableCell>
                     <Typography
                       variant="body1"
-                      fontWeight="bold"
                       color="text.primary"
                       gutterBottom
                       noWrap
                     >
-                      {item.video_link}
+                      {item.over_goal}
                     </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography
                       variant="body1"
-                      fontWeight="bold"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {item.learn_obj}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="body1"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {item.video_litmos}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="body1"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {item.video_train}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="body1"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {item.video_implement}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="body1"
                       color="text.primary"
                       gutterBottom
                       noWrap
@@ -478,7 +526,11 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
           setAddData({
             module_num: '',
             session_title: '',
-            video_link: '',
+            over_goal: '',
+            learn_obj: '',
+            video_litmos: '',
+            video_train: '',
+            video_implement: '',
             doc_link: ''
           });
         }}

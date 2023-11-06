@@ -10,6 +10,7 @@ import {
   DialogContent,
   Button
 } from '@mui/material';
+import { successNotification } from '@/utils/notification';
 
 function TrainModal(props) {
   const { setOpen, data, open, id } = props;
@@ -26,13 +27,17 @@ function TrainModal(props) {
           .get(`/api/train/data/${id}`)
           .then(async (res) => {
             res.data.map(async (item) => {
-              await axios
-                .post('http://54.177.103.247/api/train', item)
-                .then(async (res) => {
-                  console.log('*************res', res);
+              await axios.put('/api/train/data', {
+                status: 'training'
+              });
+              axios
+                .post('http://54.177.103.247/api/train', item, {
+                  timeout: 0
+                })
+                .then(() => {
+                  successNotification('The training is started.');
                 })
                 .catch((error) => console.log('*******err', error));
-              return;
             });
           })
           .catch((error) => console.log('*******err', error.data));

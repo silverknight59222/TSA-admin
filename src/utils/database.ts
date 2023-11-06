@@ -1,16 +1,13 @@
-import pgPromise from 'pg-promise';
-
-const pgp = pgPromise();
-
-// Please replace the below connection details with your own
-const connection = {
-  host: 'localhost',
+const pgp = require('pg-promise')();
+const db = pgp({
+  host: 'tsa-admin.cx0qgqgazzgb.us-west-1.rds.amazonaws.com',
   port: 5432,
   database: 'postgres',
   user: 'postgres',
-  password: '1'
-};
-
-const db = pgp(connection);
+  password: 'postgres',
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 export default db;

@@ -31,7 +31,6 @@ function ApplicationsTransactions() {
       <Head>
         <title>Data Management</title>
       </Head>
-      {/* <Container maxWidth="lg"> */}
       <Grid container direction="row" padding={1}>
         <Grid
           style={{
@@ -65,8 +64,6 @@ function ApplicationsTransactions() {
           </TabContext>
         </Grid>
       </Grid>
-      {/* </Container> */}
-      {/* <Footer /> */}
     </>
   );
 }

@@ -14,14 +14,22 @@ import { successNotification } from '@/utils/notification';
 const validationSchema = Yup.object().shape({
   module_num: Yup.string().required('Module Number is required'),
   session_title: Yup.string().required('Session Title is required'),
-  video_link: Yup.string().required('Video Link is required'),
-  doc_link: Yup.string().required('Doc Link is required')
+  over_goal: Yup.string().required('Overall goal is required'),
+  learn_obj: Yup.string().required('Learning objectives is required'),
+  video_litmos: Yup.string(),
+  video_train: Yup.string(),
+  video_implement: Yup.string(),
+  doc_link: Yup.string()
 });
 
 interface FormValues {
   module_num: string;
   session_title: string;
-  video_link: string;
+  over_goal: string;
+  learn_obj: string;
+  video_litmos: string;
+  video_train: string;
+  video_implement: string;
   doc_link: string;
 }
 
@@ -40,6 +48,7 @@ function AddModal(props) {
         validationSchema={validationSchema}
         onSubmit={(values: FormValues, { setSubmitting }) => {
           // Handle form submission
+          console.log(data.id);
           if (!data.id)
             axios
               .post('/api/train/data', {
@@ -98,17 +107,74 @@ function AddModal(props) {
                   />
                 )}
               </Field>
-              <Field name="video_link">
+              <Field name="over_goal">
                 {({ field, form }: FieldProps) => (
                   <TextField
-                    label="Video Link"
+                    label="Overall goal"
                     fullWidth
                     margin="dense"
                     {...field}
                     error={Boolean(
-                      form.errors.video_link && form.touched.video_link
+                      form.errors.over_goal && form.touched.over_goal
                     )}
-                    helperText={<ErrorMessage name="video_link" />}
+                    helperText={<ErrorMessage name="over_goal" />}
+                  />
+                )}
+              </Field>
+              <Field name="learn_obj">
+                {({ field, form }: FieldProps) => (
+                  <TextField
+                    label="Learning objectives"
+                    fullWidth
+                    margin="dense"
+                    {...field}
+                    error={Boolean(
+                      form.errors.learn_obj && form.touched.learn_obj
+                    )}
+                    helperText={<ErrorMessage name="learn_obj" />}
+                  />
+                )}
+              </Field>
+              <Field name="video_litmos">
+                {({ field, form }: FieldProps) => (
+                  <TextField
+                    label="Video File - Litmos"
+                    fullWidth
+                    margin="dense"
+                    {...field}
+                    error={Boolean(
+                      form.errors.video_litmos && form.touched.video_litmos
+                    )}
+                    helperText={<ErrorMessage name="video_litmos" />}
+                  />
+                )}
+              </Field>
+              <Field name="video_train">
+                {({ field, form }: FieldProps) => (
+                  <TextField
+                    label="Video File - Litmos (Training)"
+                    fullWidth
+                    margin="dense"
+                    {...field}
+                    error={Boolean(
+                      form.errors.video_train && form.touched.video_train
+                    )}
+                    helperText={<ErrorMessage name="video_train" />}
+                  />
+                )}
+              </Field>
+              <Field name="video_implement">
+                {({ field, form }: FieldProps) => (
+                  <TextField
+                    label="Video File - Litmos (Implementation)"
+                    fullWidth
+                    margin="dense"
+                    {...field}
+                    error={Boolean(
+                      form.errors.video_implement &&
+                        form.touched.video_implement
+                    )}
+                    helperText={<ErrorMessage name="video_implement" />}
                   />
                 )}
               </Field>

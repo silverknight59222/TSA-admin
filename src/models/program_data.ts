@@ -1,13 +1,17 @@
-export type ProgramDataStatus = 'completed' | 'pending' | 'failed';
+export type ProgramDataStatus = 'completed' | 'pending' | 'failed' | 'training';
 
 export interface ProgramData {
   id: number;
-  status: ProgramDataStatus;
   program_id: number;
   module_num: string;
   session_title: string;
-  video_link: string;
+  over_goal: string;
+  learn_obj: string;
+  video_litmos: string;
+  video_train: string;
+  video_implement: string;
   doc_link: string;
+  status: ProgramDataStatus;
   is_deleted: boolean;
   created_at: dateFns;
   created_by: number;
