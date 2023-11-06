@@ -277,7 +277,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         .then((train) => {
           setTrainId(train.data[0].id);
           axios
-            .get(`/api/data/${id}`)
+            .get(`/api/data/${id}`, { params: { search: '' } })
             .then((data) => {
               axios
                 .post('https://api.tradies-success-academy.com/api/train', data)
