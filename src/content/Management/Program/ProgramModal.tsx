@@ -36,7 +36,6 @@ function ProgramModal(props) {
         validationSchema={validationSchema}
         onSubmit={(values: FormValues, { setSubmitting }) => {
           // Handle form submission
-          console.log(data.id);
           if (!data.id)
             axios
               .post('/api/program', {

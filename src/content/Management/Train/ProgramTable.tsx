@@ -66,7 +66,6 @@ const getStatusLabel = (ProgramDataStatus: ProgramDataStatus): JSX.Element => {
       color: 'warning'
     }
   };
-  console.log(ProgramDataStatus);
   const { text, color }: any = map[ProgramDataStatus];
 
   return <Label color={color}>{text}</Label>;
@@ -217,7 +216,6 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
     selectedprogramDatas.length === programDatas.length;
   const theme = useTheme();
 
-  const [trainModalOpen, setTrainModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [trainId, setTrainId] = useState(0);
@@ -237,9 +235,8 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
     if (id != '0') {
       getList();
     }
-  }, [addModalOpen, trainModalOpen, deleteModalOpen, id]);
+  }, [addModalOpen, deleteModalOpen, id]);
   useEffect(() => {
-    console.log(id);
     if (id != '0') {
       const timer = setInterval(() => {
         getList();
@@ -250,7 +247,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
               setTrainId(0);
             }
           });
-      }, 5000);
+      }, 60000);
       return () => {
         clearTimeout(timer);
       };
@@ -261,7 +258,6 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
     axios
       .get(`/api/data/${id}`)
       .then((res) => {
-        console.log('program_data', res.data);
         setProgramDatas(res.data);
       })
       .catch((error) => console.log('*******err', error.data));
@@ -339,8 +335,9 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
             sx={{ mr: 1 }}
             startIcon={<DeleteTwoToneIcon />}
             variant="contained"
+            disabled={selectedprogramDatas.length ? false : true}
             onClick={() => {
-              setTrainModalOpen(true);
+              setDeleteModalOpen(true);
             }}
           >
             Delete
@@ -349,6 +346,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
             sx={{ mr: 1 }}
             startIcon={<ModelTrainingIcon />}
             variant="contained"
+            disabled={trainId != 0 ? true : false}
             onClick={() => onTrain()}
           >
             Train
@@ -550,6 +548,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
       <DeleteModal
         open={deleteModalOpen}
         id={deleteID}
+        ids={selectedprogramDatas}
         onClose={() => {
           setDeleteModalOpen(false);
         }}

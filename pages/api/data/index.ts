@@ -18,7 +18,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           video_train,
           video_implement,
           doc_link,
-          status,
           updated_at
         } = body;
         const query = `
@@ -33,9 +32,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
               video_train=$7, 
               video_implement=$8, 
               doc_link=$9, 
-              status=$10, 
-              updated_at=$11 
-            WHERE data.id = $12
+              updated_at=$10 
+            WHERE data.id = $11
           `;
         const values = [
           program_id,
@@ -47,15 +45,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           video_train,
           video_implement,
           doc_link,
-          status,
           updated_at,
           id
         ];
-        console.log(values);
         const response = await db.query(query, values);
         return res.json(response);
       } catch (error: any) {
-        console.log(error.message);
         return res.status(400).json({ message: error.message });
       }
     case 'POST':
@@ -90,7 +85,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
         return res.json(response);
       } catch (error: any) {
-        console.log(error.message);
         return res.status(400).json({ message: error.message });
       }
     default:

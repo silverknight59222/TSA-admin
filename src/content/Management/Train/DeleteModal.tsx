@@ -24,20 +24,30 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 function AddModal(props) {
-  const { onClose, id, open } = props;
+  const { onClose, id, open, ids } = props;
 
   const handleClose = () => {
     onClose();
   };
 
   const handleOk = () => {
-    axios
-      .delete(`/api/data/${id}`)
-      .then(async () => {
-        onClose();
-        successNotification('Successful.');
-      })
-      .catch((error) => console.log('*******err', error.data));
+    if (id != 0)
+      axios
+        .delete(`/api/data/${id}`)
+        .then(async () => {
+          onClose();
+          successNotification('Successful.');
+        })
+        .catch((error) => console.log('*******err', error.data));
+    else {
+      axios
+        .post(`/api/data/deletemany`, { ids: ids })
+        .then(async () => {
+          onClose();
+          successNotification('Successful.');
+        })
+        .catch((error) => console.log('*******err', error.data));
+    }
   };
 
   return (
@@ -60,7 +70,8 @@ function AddModal(props) {
 AddModal.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
-  id: PropTypes.string
+  id: PropTypes.string,
+  ids: PropTypes.array
 };
 
 export default AddModal;

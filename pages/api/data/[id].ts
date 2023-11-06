@@ -7,11 +7,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
-        const querys = `SELECT data.*,program.name as program_name, train_history.status as status  from data left join program on program.id = data.program_id left join train_history on train_history.data_id = data.id WHERE data.program_id = ${query.id} AND data.is_deleted = FALSE and train_history.train_id = data.train_id group by data.id,program.name, train_history.status order by data.id `;
+        const querys = `SELECT DATA .*,program.NAME AS program_name,train_history.status AS status FROM DATA LEFT JOIN program ON program.ID = DATA.program_id LEFT JOIN train ON train.id = DATA.train_id left join train_history on train_history.train_id = train.id WHERE DATA.program_id = 1 AND DATA.is_deleted = FALSE or data.id = train_history.data_id GROUP BY DATA.ID, program.NAME, train_history.status ORDER BY DATA.ID `;
         const response = await db.query(querys);
         return res.json(response);
       } catch (error: any) {
-        console.log(error.message);
         return res.status(400).json({ message: error.message });
       }
     case 'DELETE':

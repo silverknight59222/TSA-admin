@@ -34,7 +34,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         await db.query(udpate_query);
         return res.json(response);
       } catch (error: any) {
-        console.log(error.message);
         return res.status(400).json({ message: error.message });
       }
     default:
