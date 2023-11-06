@@ -51,7 +51,7 @@ function AddModal(props) {
           console.log(data.id);
           if (!data.id)
             axios
-              .post('/api/train/data', {
+              .post('/api/data', {
                 ...values,
                 program_id: id,
                 status: 'pending',
@@ -64,7 +64,7 @@ function AddModal(props) {
               .catch((error) => console.log('*******err', error));
           else
             axios
-              .put('/api/train/data', {
+              .put('/api/data', {
                 ...values,
                 updated_at: new Date()
               })

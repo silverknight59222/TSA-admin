@@ -219,7 +219,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
   const [trainModalOpen, setTrainModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [flag, setFlag] = useState(false);
+  const [trainId, setTrainId] = useState();
   const [addData, setAddData] = useState({
     module_num: '',
     session_title: '',
@@ -233,49 +233,57 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
   const [deleteID, setDeleteID] = useState<string>('0');
 
   useEffect(() => {
-    if (id) {
-      axios
-        .get(`/api/train/data/${id}`)
-        .then(async (res) => {
-          setProgramDatas(res.data);
-        })
-        .catch((error) => console.log('*******err', error.data));
+    if (id != '0') {
+      getList();
     }
-  }, [id, addModalOpen, trainModalOpen, deleteModalOpen]);
+  }, [addModalOpen, trainModalOpen, deleteModalOpen, id]);
   useEffect(() => {
-    if (flag === true)
-      axios
-        .get(`/api/train/data/${id}`)
-        .then(async (res) => {
-          setProgramDatas(res.data);
-          setFlag(false);
-        })
-        .catch((error) => console.log('*******err', error.data));
-  }, [flag]);
+    console.log(id);
+    if (id != '0') {
+      const timer = setInterval(() => {
+        getList();
+        if (trainId)
+          axios.get(`/api/train/${trainId}`).then((res) => {
+            if (res.data[0].status === 'completed')
+              successNotification('Training is done.');
+          });
+      }, 1000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [id, trainId]);
+
+  const getList = () => {
+    axios
+      .get(`/api/data/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        setProgramDatas(res.data);
+      })
+      .catch((error) => console.log('*******err', error.data));
+  };
   const onTrain = () => {
     if (selectedprogramDatas.length) {
     } else {
       axios
-        .get(`/api/train/data/${id}`)
-        .then(async (res) => {
-          if (res.data.length) {
-            await axios.put('/api/train/data', {
-              ...res.data[0],
-              status: 'training'
-            });
-            setFlag(true);
-            axios
-              .post(
-                'https://api.tradies-success-academy.com/api/train',
-                res.data
-              )
-              .then(() => {
-                successNotification('The training is started.');
-              })
-              .catch((error) => console.log('*******err', error));
-          }
+        .post('/api/train', { program_id: id })
+        .then((train) => {
+          setTrainId(train.data[0].id);
+          axios
+            .get(`/api/data/${id}`)
+            .then((data) => {
+              axios
+                .post('https://api.tradies-success-academy.com/api/train', data)
+                .then(() => {
+                  successNotification('The training is started.');
+                  getList();
+                })
+                .catch((error) => console.log('*******err', error));
+            })
+            .catch((error) => console.log('*******err', error));
         })
-        .catch((error) => console.log('*******err', error.data));
+        .catch((error) => console.log('*******err', error));
     }
   };
 

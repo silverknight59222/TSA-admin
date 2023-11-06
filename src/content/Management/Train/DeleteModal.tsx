@@ -32,7 +32,7 @@ function AddModal(props) {
 
   const handleOk = () => {
     axios
-      .delete(`/api/train/data/${id}`)
+      .delete(`/api/data/${id}`)
       .then(async () => {
         onClose();
         successNotification('Successful.');

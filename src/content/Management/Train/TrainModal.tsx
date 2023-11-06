@@ -24,22 +24,26 @@ function TrainModal(props) {
       if (data.length) {
       } else {
         axios
-          .get(`/api/train/data/${id}`)
-          .then(async (res) => {
-            res.data.map(async (item) => {
-              await axios.put('/api/train/data', {
-                ...item,
-                status: 'training'
-              });
-              axios
-                .post('https://api.tradies-success-academy.com/api/train', item)
-                .then(() => {
-                  successNotification('The training is started.');
-                })
-                .catch((error) => console.log('*******err', error));
-            });
+          .post('/api/train', { program_id: id })
+          .then((train) => {
+            console.log(train);
+            axios
+              .get(`/api/data/${id}`)
+              .then((data) => {
+                console.log(data);
+                axios
+                  .post(
+                    'https://api.tradies-success-academy.com/api/train',
+                    data
+                  )
+                  .then(() => {
+                    successNotification('The training is started.');
+                  })
+                  .catch((error) => console.log('*******err', error));
+              })
+              .catch((error) => console.log('*******err', error));
           })
-          .catch((error) => console.log('*******err', error.data));
+          .catch((error) => console.log('*******err', error));
       }
     }
   }, [open]);
