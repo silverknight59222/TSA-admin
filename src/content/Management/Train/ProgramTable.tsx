@@ -24,7 +24,8 @@ import {
   CardHeader,
   Button,
   InputAdornment,
-  TextField
+  TextField,
+  CircularProgress
 } from '@mui/material';
 import Label from '@/components/Label';
 import { ProgramData, ProgramDataStatus } from '@/models/program_data';
@@ -63,12 +64,12 @@ const getStatusLabel = (ProgramDataStatus: ProgramDataStatus): JSX.Element => {
     },
     training: {
       text: 'Training',
-      color: 'warning'
+      color: 'primary'
     }
   };
   const { text, color }: any = map[ProgramDataStatus];
-
-  return <Label color={color}>{text}</Label>;
+  if (text === 'Training') return <CircularProgress />;
+  else return <Label color={color}>{text}</Label>;
 };
 
 const applyFilters = (
