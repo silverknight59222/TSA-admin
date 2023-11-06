@@ -32,13 +32,7 @@ function TrainModal(props) {
                 status: 'training'
               });
               axios
-                .post(
-                  'https://api.tradies-success-academy.com/api/train',
-                  item,
-                  {
-                    timeout: 0
-                  }
-                )
+                .post('https://api.tradies-success-academy.com/api/train', item)
                 .then(() => {
                   successNotification('The training is started.');
                 })

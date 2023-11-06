@@ -51,7 +51,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           updated_at,
           id
         ];
-
+        console.log(values);
         const response = await db.query(query, values);
         return res.json(response);
       } catch (error: any) {
