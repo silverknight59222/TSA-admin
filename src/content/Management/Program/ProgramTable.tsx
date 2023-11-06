@@ -69,6 +69,7 @@ const ProgramTable: FC<ProgramTableProps> = () => {
 
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const [addData, setAddData] = useState({
     name: '',
     description: ''
@@ -77,13 +78,18 @@ const ProgramTable: FC<ProgramTableProps> = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/program`)
+      .get(`/api/program`, {
+        params: { search: searchTerm }
+      })
       .then(async (res) => {
         setProgramDatas(res.data);
       })
       .catch((error) => console.log('*******err', error.data));
-  }, [addModalOpen, deleteModalOpen]);
+  }, [addModalOpen, deleteModalOpen, searchTerm]);
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
   return (
     <Card style={{ marginTop: '8px' }}>
       <Box
@@ -109,6 +115,8 @@ const ProgramTable: FC<ProgramTableProps> = () => {
               )
             }}
             placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearchChange}
           />
         </Box>
         <Box display="flex" alignItems="center" justifyContent="space-between">

@@ -3,13 +3,13 @@ import db from '@/utils/database';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  const { method, body } = req;
+  const { method, body, query } = req;
 
   switch (method) {
     case 'GET':
       try {
-        const query = 'SELECT * FROM program where is_deleted = false';
-        const response = await db.query(query);
+        const querys = `SELECT * FROM program where is_deleted = false AND (name LIKE'%${query.search}%' OR description LIKE'%${query.search}%' ) `;
+        const response = await db.query(querys);
         return res.json(response);
       } catch (error: any) {
         return res.status(400).json({ message: error.message });

@@ -31,7 +31,7 @@ function Overview() {
   return (
     <OverviewWrapper>
       <Head>
-        <title>Tokyo Free White NextJS Typescript Admin Dashboard</title>
+        <title>White NextJS Typescript Admin Dashboard</title>
       </Head>
       <HeaderWrapper>
         <Container maxWidth="lg">
@@ -47,9 +47,10 @@ function Overview() {
               <Box>
                 <Button
                   component={Link}
-                  href="/dashboards/crypto"
+                  href="/management/train"
                   variant="contained"
                   sx={{ ml: 2 }}
+                  style={{ width: '150px' }}
                 >
                   Live Preview
                 </Button>

@@ -12,7 +12,7 @@ function ApplicationsTransactions() {
   const [programList, setProgramList] = React.useState([]);
   useEffect(() => {
     axios
-      .get('/api/program')
+      .get('/api/program', { params: { search: '' } })
       .then(async (res) => {
         if (res.data.length) {
           setProgramList(res.data);

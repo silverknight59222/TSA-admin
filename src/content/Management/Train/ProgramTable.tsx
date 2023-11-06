@@ -151,6 +151,10 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
       name: 'Pending'
     },
     {
+      id: 'training',
+      name: 'Training'
+    },
+    {
       id: 'failed',
       name: 'Failed'
     }
@@ -218,6 +222,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
 
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const [trainId, setTrainId] = useState(0);
   const [addData, setAddData] = useState({
     module_num: '',
@@ -235,7 +240,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
     if (id != '0') {
       getList();
     }
-  }, [addModalOpen, deleteModalOpen, id]);
+  }, [addModalOpen, deleteModalOpen, id, searchTerm]);
   useEffect(() => {
     if (id != '0') {
       const timer = setInterval(() => {
@@ -256,7 +261,9 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
 
   const getList = () => {
     axios
-      .get(`/api/data/${id}`)
+      .get(`/api/data/${id}`, {
+        params: { search: searchTerm }
+      })
       .then((res) => {
         setProgramDatas(res.data);
       })
@@ -275,7 +282,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
               axios
                 .post('https://api.tradies-success-academy.com/api/train', data)
                 .then(() => {
-                  successNotification('The training is started.');
+                  successNotification('Training is started.');
                   getList();
                 })
                 .catch((error) => console.log('*******err', error));
@@ -284,6 +291,10 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         })
         .catch((error) => console.log('*******err', error));
     }
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   return (
@@ -306,6 +317,8 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
               )
             }}
             placeholder="Search..."
+            value={searchTerm}
+            onChange={handleSearchChange}
           />
           <CardHeader
             action={
@@ -346,7 +359,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
             sx={{ mr: 1 }}
             startIcon={<ModelTrainingIcon />}
             variant="contained"
-            disabled={trainId != 0 ? true : false}
+            disabled={trainId != 0 || programDatas.length == 0 ? true : false}
             onClick={() => onTrain()}
           >
             Train

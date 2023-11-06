@@ -198,19 +198,19 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/dashboards/crypto" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/dashboards/crypto' ? 'active' : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<BrightnessLowTwoToneIcon />}
-                  >
-                    Dashboard
-                  </Button>
-                </NextLink>
+                {/* <NextLink href="/dashboards/crypto" passHref> */}
+                <Button
+                  className={
+                    currentRoute === '/dashboards/crypto' ? 'active' : ''
+                  }
+                  disableRipple
+                  component="a"
+                  onClick={closeSidebar}
+                  startIcon={<BrightnessLowTwoToneIcon />}
+                >
+                  Dashboard
+                </Button>
+                {/* </NextLink> */}
               </ListItem>
             </List>
           </SubMenuWrapper>
@@ -256,19 +256,19 @@ function SidebarMenu() {
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/management/prompt" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/management/prompt' ? 'active' : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<TableChartTwoToneIcon />}
-                  >
-                    Prompt Management
-                  </Button>
-                </NextLink>
+                {/* <NextLink href="/management/prompt" passHref> */}
+                <Button
+                  className={
+                    currentRoute === '/management/prompt' ? 'active' : ''
+                  }
+                  disableRipple
+                  component="a"
+                  onClick={closeSidebar}
+                  startIcon={<TableChartTwoToneIcon />}
+                >
+                  Prompt Management
+                </Button>
+                {/* </NextLink> */}
               </ListItem>
             </List>
           </SubMenuWrapper>
@@ -284,32 +284,30 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/history/chat" passHref>
-                  <Button
-                    className={currentRoute === '/history/chat' ? 'active' : ''}
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<TableChartTwoToneIcon />}
-                  >
-                    Chat History
-                  </Button>
-                </NextLink>
+                {/* <NextLink href="/history/chat" passHref> */}
+                <Button
+                  className={currentRoute === '/history/chat' ? 'active' : ''}
+                  disableRipple
+                  component="a"
+                  onClick={closeSidebar}
+                  startIcon={<TableChartTwoToneIcon />}
+                >
+                  Chat History
+                </Button>
+                {/* </NextLink> */}
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/history/train" passHref>
-                  <Button
-                    className={
-                      currentRoute === '/history/train' ? 'active' : ''
-                    }
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<ModelTrainingIcon />}
-                  >
-                    Train History
-                  </Button>
-                </NextLink>
+                {/* <NextLink href="/history/train" passHref> */}
+                <Button
+                  className={currentRoute === '/history/train' ? 'active' : ''}
+                  disableRipple
+                  component="a"
+                  onClick={closeSidebar}
+                  startIcon={<ModelTrainingIcon />}
+                >
+                  Train History
+                </Button>
+                {/* </NextLink> */}
               </ListItem>
             </List>
           </SubMenuWrapper>

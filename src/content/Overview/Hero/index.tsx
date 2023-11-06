@@ -35,65 +35,65 @@ const LabelWrapper = styled(Box)(
 `
 );
 
-const MuiAvatar = styled(Box)(
-  ({ theme }) => `
-    width: ${theme.spacing(8)};
-    height: ${theme.spacing(8)};
-    border-radius: ${theme.general.borderRadius};
-    background-color: #e5f7ff;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto ${theme.spacing(2)};
+// const MuiAvatar = styled(Box)(
+//   ({ theme }) => `
+//     width: ${theme.spacing(8)};
+//     height: ${theme.spacing(8)};
+//     border-radius: ${theme.general.borderRadius};
+//     background-color: #e5f7ff;
+//     flex-shrink: 0;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin: 0 auto ${theme.spacing(2)};
 
-    img {
-      width: 60%;
-      height: 60%;
-      display: block;
-    }
-`
-);
+//     img {
+//       width: 60%;
+//       height: 60%;
+//       display: block;
+//     }
+// `
+// );
 
-const TsAvatar = styled(Box)(
-  ({ theme }) => `
-    width: ${theme.spacing(8)};
-    height: ${theme.spacing(8)};
-    border-radius: ${theme.general.borderRadius};
-    background-color: #dfebf6;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto ${theme.spacing(2)};
+// const TsAvatar = styled(Box)(
+//   ({ theme }) => `
+//     width: ${theme.spacing(8)};
+//     height: ${theme.spacing(8)};
+//     border-radius: ${theme.general.borderRadius};
+//     background-color: #dfebf6;
+//     flex-shrink: 0;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin: 0 auto ${theme.spacing(2)};
 
-    img {
-      width: 60%;
-      height: 60%;
-      display: block;
-    }
-`
-);
+//     img {
+//       width: 60%;
+//       height: 60%;
+//       display: block;
+//     }
+// `
+// );
 
-const NextJsAvatar = styled(Box)(
-  ({ theme }) => `
-  width: ${theme.spacing(8)};
-  height: ${theme.spacing(8)};
-  border-radius: ${theme.general.borderRadius};
-  background-color: #dfebf6;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto ${theme.spacing(2)};
+// const NextJsAvatar = styled(Box)(
+//   ({ theme }) => `
+//   width: ${theme.spacing(8)};
+//   height: ${theme.spacing(8)};
+//   border-radius: ${theme.general.borderRadius};
+//   background-color: #dfebf6;
+//   flex-shrink: 0;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin: 0 auto ${theme.spacing(2)};
 
-    img {
-      width: 60%;
-      height: 60%;
-      display: block;
-    }
-`
-);
+//     img {
+//       width: 60%;
+//       height: 60%;
+//       display: block;
+//     }
+// `
+// );
 
 function Hero() {
   return (
@@ -112,13 +112,11 @@ function Hero() {
             color="text.secondary"
             fontWeight="normal"
           >
-            High performance React template built with lots of powerful
-            Material-UI components across multiple product niches for fast &
-            perfect apps development processes
+            This is TSA AI BOT Admin Portal.
           </TypographyH2>
           <Button
             component={Link}
-            href="/dashboards/crypto"
+            href="/management/train"
             size="large"
             variant="contained"
           >
@@ -135,7 +133,7 @@ function Hero() {
           >
             Key Features
           </Button>
-          <Grid container spacing={3} mt={5}>
+          {/* <Grid container spacing={3} mt={5}>
             <Grid item md={4}>
               <MuiAvatar>
                 <img
@@ -184,7 +182,7 @@ function Hero() {
                 </Typography>
               </Typography>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </Container>
