@@ -5,15 +5,14 @@ import { Grid, Box, Tab } from '@mui/material';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import ProgramTable from '@/content/Management/Train/ProgramTable';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import axios from 'axios';
+
 function ApplicationsTransactions() {
-  const [value, setValue] = React.useState('new');
-  // const [data, setData] = React.useState([]);
+  const [value, setValue] = React.useState('0');
   const [programList, setProgramList] = React.useState([]);
   useEffect(() => {
     axios
-      .get('/api/train/program')
+      .get('/api/program')
       .then(async (res) => {
         if (res.data.length) {
           setProgramList(res.data);
@@ -55,9 +54,6 @@ function ApplicationsTransactions() {
                     />
                   );
                 })}
-                <Tab label="FF BRONZE" value="2" />
-                <Tab label="GROWTH SYSTEMS" value="3" />
-                <Tab icon={<AddCircleOutlineIcon />} value="new"></Tab>
               </TabList>
             </Box>
             <ProgramTable id={value} />

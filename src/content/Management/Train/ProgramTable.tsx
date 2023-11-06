@@ -1,5 +1,6 @@
 import { FC, ChangeEvent, useState, useEffect } from 'react';
 import axios from 'axios';
+import { successNotification } from '@/utils/notification';
 import {
   Tooltip,
   Divider,
@@ -33,7 +34,6 @@ import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { styled } from '@mui/material/styles';
-import TrainModal from '@/content/Management/Train/TrainModal';
 import AddModal from '@/content/Management/Train/AddModal';
 import DeleteModal from '@/content/Management/Train/DeleteModal';
 import React from 'react';
@@ -219,6 +219,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
   const [trainModalOpen, setTrainModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [flag, setFlag] = useState(false);
   const [addData, setAddData] = useState({
     module_num: '',
     session_title: '',
@@ -230,10 +231,9 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
     doc_link: ''
   });
   const [deleteID, setDeleteID] = useState<string>('0');
-  const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
-    if (id !== 'new') {
+    if (id) {
       axios
         .get(`/api/train/data/${id}`)
         .then(async (res) => {
@@ -242,6 +242,42 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         .catch((error) => console.log('*******err', error.data));
     }
   }, [id, addModalOpen, trainModalOpen, deleteModalOpen]);
+  useEffect(() => {
+    if (flag === true)
+      axios
+        .get(`/api/train/data/${id}`)
+        .then(async (res) => {
+          setProgramDatas(res.data);
+          setFlag(false);
+        })
+        .catch((error) => console.log('*******err', error.data));
+  }, [flag]);
+  const onTrain = () => {
+    if (selectedprogramDatas.length) {
+    } else {
+      axios
+        .get(`/api/train/data/${id}`)
+        .then(async (res) => {
+          if (res.data.length) {
+            await axios.put('/api/train/data', {
+              ...res.data[0],
+              status: 'training'
+            });
+            setFlag(true);
+            axios
+              .post(
+                'https://api.tradies-success-academy.com/api/train',
+                res.data
+              )
+              .then(() => {
+                successNotification('The training is started.');
+              })
+              .catch((error) => console.log('*******err', error));
+          }
+        })
+        .catch((error) => console.log('*******err', error.data));
+    }
+  };
 
   return (
     <Card style={{ marginTop: '8px' }}>
@@ -302,10 +338,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
             sx={{ mr: 1 }}
             startIcon={<ModelTrainingIcon />}
             variant="contained"
-            onClick={() => {
-              setTrainModalOpen(true);
-              setDataList(selectedprogramDatas);
-            }}
+            onClick={() => onTrain()}
           >
             Train
           </ButtonTrain>
@@ -503,12 +536,6 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
           rowsPerPageOptions={[5, 10, 25, 30]}
         />
       </Box>
-      <TrainModal
-        open={trainModalOpen}
-        setOpen={setTrainModalOpen}
-        data={dataList}
-        id={id}
-      />
       <DeleteModal
         open={deleteModalOpen}
         id={deleteID}

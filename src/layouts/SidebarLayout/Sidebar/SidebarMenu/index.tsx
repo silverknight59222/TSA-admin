@@ -226,6 +226,21 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
+                <NextLink href="/management/program" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/management/program' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<ModelTrainingIcon />}
+                  >
+                    Program Management
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
                 <NextLink href="/management/train" passHref>
                   <Button
                     className={

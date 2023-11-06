@@ -51,7 +51,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           updated_at,
           id
         ];
-        console.log(values);
         const response = await db.query(query, values);
         return res.json(response);
       } catch (error: any) {
@@ -60,39 +59,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }
     case 'POST':
       try {
-        const {
-          program_id,
-          module_num,
-          session_title,
-          over_goal,
-          learn_obj,
-          video_litmos,
-          video_train,
-          video_implement,
-          doc_link,
-          created_at,
-          status
-        } = body;
-        const query =
-          'INSERT INTO data(program_id, module_num, session_title, over_goal, learn_obj, video_litmos, video_train, video_implement, doc_link, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
-        const values = [
-          parseInt(program_id),
-          module_num,
-          session_title,
-          over_goal,
-          learn_obj,
-          video_litmos,
-          video_train,
-          video_implement,
-          doc_link,
-          created_at,
-          status
-        ];
-        const response = await db.query(query, values);
-
-        return res.json(response);
+        return res.json('sdsdsdss');
       } catch (error: any) {
-        console.log(error.message);
         return res.status(400).json({ message: error.message });
       }
     default:

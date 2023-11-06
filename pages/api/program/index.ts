@@ -8,25 +8,41 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
-        const query = 'SELECT * FROM program';
+        const query = 'SELECT * FROM program where is_deleted = false';
         const response = await db.query(query);
         return res.json(response);
       } catch (error: any) {
-        console.log(error.message);
+        return res.status(400).json({ message: error.message });
+      }
+    case 'PUT':
+      try {
+        const { id, name, description } = body;
+        const query = `
+              UPDATE program 
+              SET 
+                name=$1, 
+                description=$2
+              WHERE id = $3
+            `;
+        const values = [name, description, id];
+        const response = await db.query(query, values);
+        return res.json(response);
+      } catch (error: any) {
         return res.status(400).json({ message: error.message });
       }
     case 'POST':
       try {
-        const { title, description } = body;
+        const { name, description } = body;
 
         const query =
-          'INSERT INTO tasks(title, description) VALUES ($1, $2) RETURNING *';
-        const values = [title, description];
+          'INSERT INTO program(name, description) VALUES ($1, $2) RETURNING *';
+        const values = [name, description];
 
         const response = await db.query(query, values);
 
-        return res.json(response.rows[0]);
+        return res.json(response);
       } catch (error: any) {
+        console.log(error.message);
         return res.status(400).json({ message: error.message });
       }
     default:
