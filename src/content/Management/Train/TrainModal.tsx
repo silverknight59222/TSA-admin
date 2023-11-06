@@ -28,6 +28,7 @@ function TrainModal(props) {
           .then(async (res) => {
             res.data.map(async (item) => {
               await axios.put('/api/train/data', {
+                ...item,
                 status: 'training'
               });
               axios
