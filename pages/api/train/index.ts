@@ -8,12 +8,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     case 'PUT':
       try {
         const { id, status } = body;
-        const data_query = `select * from data where id=${id}`;
         const query = `UPDATE train SET status=$1 WHERE id = $2`;
-        const train_id = data_query[0]['train_id'];
-        const values = [status, train_id];
+        const values = [status, id];
         await db.query(query, values);
-        return res.json({ id, data_query });
+        return res.json({ id, status });
       } catch (error: any) {
         return res.status(400).json({ message: error.message });
       }
