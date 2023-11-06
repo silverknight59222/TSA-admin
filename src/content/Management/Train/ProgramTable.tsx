@@ -220,7 +220,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
   const [trainModalOpen, setTrainModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [trainId, setTrainId] = useState();
+  const [trainId, setTrainId] = useState(0);
   const [addData, setAddData] = useState({
     module_num: '',
     session_title: '',
@@ -245,9 +245,10 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         getList();
         if (trainId)
           axios.get(`/api/train/${trainId}`).then((res) => {
-            console.log('train_data', res.data);
-            if (res.data[0].status === 'completed')
+            if (res.data[0].status === 'completed') {
               successNotification('Training is done.');
+              setTrainId(0);
+            }
           });
       }, 5000);
       return () => {

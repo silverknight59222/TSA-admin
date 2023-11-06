@@ -70,11 +70,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           video_train,
           video_implement,
           doc_link,
-          created_at,
-          status
+          created_at
         } = body;
         const query =
-          'INSERT INTO data(program_id, module_num, session_title, over_goal, learn_obj, video_litmos, video_train, video_implement, doc_link, created_at, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *';
+          'INSERT INTO data(program_id, module_num, session_title, over_goal, learn_obj, video_litmos, video_train, video_implement, doc_link, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
         const values = [
           parseInt(program_id),
           module_num,
@@ -85,8 +84,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
           video_train,
           video_implement,
           doc_link,
-          created_at,
-          status
+          created_at
         ];
         const response = await db.query(query, values);
 

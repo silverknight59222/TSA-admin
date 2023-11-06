@@ -54,7 +54,6 @@ function AddModal(props) {
               .post('/api/data', {
                 ...values,
                 program_id: id,
-                status: 'pending',
                 created_at: new Date()
               })
               .then(async () => {
