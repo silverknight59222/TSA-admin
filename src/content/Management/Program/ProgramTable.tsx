@@ -77,6 +77,10 @@ const ProgramTable: FC<ProgramTableProps> = () => {
   const [deleteID, setDeleteID] = useState<string>('0');
 
   useEffect(() => {
+    getList();
+  }, [addModalOpen, deleteModalOpen]);
+
+  const getList = () => {
     axios
       .get(`/api/program`, {
         params: { search: searchTerm }
@@ -85,7 +89,7 @@ const ProgramTable: FC<ProgramTableProps> = () => {
         setProgramDatas(res.data);
       })
       .catch((error) => console.log('*******err', error.data));
-  }, [addModalOpen, deleteModalOpen, searchTerm]);
+  };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -112,7 +116,12 @@ const ProgramTable: FC<ProgramTableProps> = () => {
                 <InputAdornment position="start">
                   <SearchTwoToneIcon />
                 </InputAdornment>
-              )
+              ),
+              onKeyDown: (event) => {
+                if (event.key === 'Enter') {
+                  getList();
+                }
+              }
             }}
             placeholder="Search..."
             value={searchTerm}

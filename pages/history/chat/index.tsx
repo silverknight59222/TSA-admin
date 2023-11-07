@@ -1,11 +1,8 @@
 import Head from 'next/head';
 import SidebarLayout from '@/layouts/SidebarLayout';
-// import PageHeader from '@/content/Management/Train/PageHeader';
-import PageTitleWrapper from '@/components/PageTitleWrapper';
-import { Grid, Container } from '@mui/material';
+import { Grid } from '@mui/material';
 import Footer from '@/components/Footer';
-
-// import RecentOrders from '@/content/Management/Train/RecentOrders';
+import ChatHistoryTable from '@/content/History/Chat/ChatHistoryTable';
 
 function ApplicationsTransactions() {
   return (
@@ -13,20 +10,18 @@ function ApplicationsTransactions() {
       <Head>
         <title>Transactions - Applications</title>
       </Head>
-      <PageTitleWrapper>{/* <PageHeader /> */}</PageTitleWrapper>
-      <Container maxWidth="lg">
+      <Grid container direction="row" padding={1}>
         <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="stretch"
-          spacing={3}
+          style={{
+            backgroundColor: 'white',
+            height: '100%',
+            width: '100%',
+            padding: '8px'
+          }}
         >
-          <Grid item xs={12}>
-            {/* <RecentOrders /> */}
-          </Grid>
+          <ChatHistoryTable />
         </Grid>
-      </Container>
+      </Grid>
       <Footer />
     </>
   );

@@ -7,7 +7,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
-        console.log(query);
         const querys = `SELECT DATA
         .*,
         program.NAME AS program_name,

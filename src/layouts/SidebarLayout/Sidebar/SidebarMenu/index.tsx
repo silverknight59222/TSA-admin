@@ -284,17 +284,17 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                {/* <NextLink href="/history/chat" passHref> */}
-                <Button
-                  className={currentRoute === '/history/chat' ? 'active' : ''}
-                  disableRipple
-                  component="a"
-                  onClick={closeSidebar}
-                  startIcon={<TableChartTwoToneIcon />}
-                >
-                  Chat History
-                </Button>
-                {/* </NextLink> */}
+                <NextLink href="/history/chat" passHref>
+                  <Button
+                    className={currentRoute === '/history/chat' ? 'active' : ''}
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<TableChartTwoToneIcon />}
+                  >
+                    Chat History
+                  </Button>
+                </NextLink>
               </ListItem>
               <ListItem component="div">
                 {/* <NextLink href="/history/train" passHref> */}

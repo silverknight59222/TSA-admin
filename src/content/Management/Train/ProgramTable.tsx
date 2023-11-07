@@ -241,7 +241,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
     if (id != '0') {
       getList();
     }
-  }, [addModalOpen, deleteModalOpen, id, searchTerm]);
+  }, [addModalOpen, deleteModalOpen, id]);
   useEffect(() => {
     if (id != '0') {
       const timer = setInterval(() => {
@@ -315,7 +315,12 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                 <InputAdornment position="start">
                   <SearchTwoToneIcon />
                 </InputAdornment>
-              )
+              ),
+              onKeyDown: (event) => {
+                if (event.key === 'Enter') {
+                  getList();
+                }
+              }
             }}
             placeholder="Search..."
             value={searchTerm}
