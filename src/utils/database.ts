@@ -1,10 +1,10 @@
 const pgp = require('pg-promise')();
 const db = pgp({
-  host: 'tsa-admin.cx0qgqgazzgb.us-west-1.rds.amazonaws.com',
+  host: process.env.HOST,
   port: 5432,
-  database: 'postgres',
-  user: 'postgres',
-  password: 'postgres',
+  database: process.env.DATABASE,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
   ssl: {
     rejectUnauthorized: false
   }

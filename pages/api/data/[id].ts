@@ -7,6 +7,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
+        console.log(query);
         const querys = `SELECT DATA
         .*,
         program.NAME AS program_name,
@@ -19,7 +20,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       WHERE
         DATA.program_id = ${query.id} 
         AND DATA.is_deleted = FALSE 
-        AND train_history.train_id = DATA.train_id 
         AND (
           module_num LIKE'%${query.search}%' 
           OR session_title LIKE'%${query.search}%' 
@@ -33,6 +33,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       GROUP BY
         DATA.ID,
         program.NAME,
+        train_history.data_id,
         train_history.status 
       ORDER BY
         DATA.ID`;
