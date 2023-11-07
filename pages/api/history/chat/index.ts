@@ -7,21 +7,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'POST':
       try {
+        const { user_id, content, time, parent_id } = body;
         const query =
-          'INSERT INTO chat_history(id, ) VALUES ($1, $2) RETURNING *';
-        const values = [new Date(), 'training'];
+          'INSERT INTO chat_history(user_id, content, time, parent_id) VALUES ($1, $2, $3, $4) RETURNING *';
+        const values = [user_id, content, time, parent_id];
         const response = await db.query(query, values);
-        const querys = `SELECT data.*, program.name as program_name from data LEFT JOIN program ON program_id = program.ID WHERE program_id = ${body.program_id} AND data.is_deleted = FALSE order by data.id`;
-        const data = await db.query(querys);
-        const promises = data.map(async (item) => {
-          const q =
-            'INSERT INTO train_history(train_id, data_id, status) VALUES ($1, $2, $3) RETURNING *';
-          const val = [response[0].id, item.id, 'training'];
-          await db.query(q, val);
-        });
-        await Promise.all(promises);
-        const udpate_query = `UPDATE data SET train_id=${response[0].id} WHERE program_id = ${body.program_id}`;
-        await db.query(udpate_query);
         return res.json(response);
       } catch (error: any) {
         return res.status(400).json({ message: error.message });
