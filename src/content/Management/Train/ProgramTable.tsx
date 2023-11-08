@@ -23,7 +23,6 @@ import {
   useTheme,
   CardHeader,
   Button,
-  InputAdornment,
   TextField,
   CircularProgress
 } from '@mui/material';
@@ -37,7 +36,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { styled } from '@mui/material/styles';
 import AddModal from '@/content/Management/Train/AddModal';
 import DeleteModal from '@/content/Management/Train/DeleteModal';
-import React from 'react';
+import * as React from 'react';
 
 interface ProgramDataTableProps {
   className?: string;
@@ -236,6 +235,16 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
     doc_link: ''
   });
   const [deleteID, setDeleteID] = useState<string>('0');
+  const getList = () => {
+    axios
+      .get(`/api/data/${id}`, {
+        params: { search: searchTerm }
+      })
+      .then((res) => {
+        setProgramDatas(res.data);
+      })
+      .catch((error) => console.log('*******err', error.data));
+  };
 
   useEffect(() => {
     if (id != '0') {
@@ -248,28 +257,18 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         getList();
         if (trainId)
           axios.get(`/api/train/${trainId}`).then((res) => {
-            if (res.data[0].status === 'completed') {
+            if (res.data[0].status == 'completed') {
               successNotification('Training is done.');
               setTrainId(0);
             }
           });
       }, 60000);
       return () => {
-        clearTimeout(timer);
+        clearInterval(timer);
       };
     }
   }, [id, trainId]);
 
-  const getList = () => {
-    axios
-      .get(`/api/data/${id}`, {
-        params: { search: searchTerm }
-      })
-      .then((res) => {
-        setProgramDatas(res.data);
-      })
-      .catch((error) => console.log('*******err', error.data));
-  };
   const onTrain = () => {
     if (selectedprogramDatas.length) {
     } else {
@@ -310,19 +309,25 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         >
           <TextField
             fullWidth
+            size="small"
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchTwoToneIcon />
-                </InputAdornment>
-              ),
               onKeyDown: (event) => {
                 if (event.key === 'Enter') {
                   getList();
                 }
-              }
+              },
+              endAdornment: (
+                <IconButton
+                  onClick={() => getList()}
+                  type="button"
+                  sx={{ p: '10px' }}
+                  aria-label="search"
+                >
+                  <SearchTwoToneIcon />
+                </IconButton>
+              )
             }}
-            placeholder="Search..."
+            placeholder="Input search text."
             value={searchTerm}
             onChange={handleSearchChange}
           />
@@ -332,6 +337,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Status</InputLabel>
                   <Select
+                    size="medium"
                     value={filters.status || 'all'}
                     onChange={handleStatusChange}
                     label="Status"
@@ -424,6 +430,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                   </TableCell>
                   <TableCell align="center">
                     <Tooltip
+                      children={undefined}
                       title="Edit"
                       arrow
                       onClick={() => {
@@ -447,6 +454,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                     <Tooltip
                       title="Delete"
                       arrow
+                      children={undefined}
                       onClick={() => {
                         setDeleteID(item.id.toString());
                         setDeleteModalOpen(true);

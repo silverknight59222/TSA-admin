@@ -15,10 +15,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       FROM
         DATA LEFT JOIN program ON program.ID = DATA.program_id
         FULL JOIN train_history ON train_history.data_id = DATA.
-        ID LEFT JOIN train ON train.ID = train_history.train_id 
+        ID
       WHERE
         DATA.program_id = ${query.id} 
         AND DATA.is_deleted = FALSE 
+        AND data.train_id = train_history.train_id
         AND (
           module_num LIKE'%${query.search}%' 
           OR session_title LIKE'%${query.search}%' 

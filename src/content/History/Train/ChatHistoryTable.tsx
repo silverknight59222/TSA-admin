@@ -20,7 +20,6 @@ import {
   Button,
   TextField
 } from '@mui/material';
-import Label from '@/components/Label';
 import { ChatHistoryData } from '@/models/chat_history';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import SearchIcon from '@mui/icons-material/Search';
@@ -186,6 +185,24 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
             value={searchTerm}
             onChange={handleSearchChange}
           />
+          {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="Start date"
+              value={startDate}
+              onChange={(newValue) => {
+                setStartDate(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <DatePicker
+              label="End date"
+              value={endDate}
+              onChange={(newValue) => {
+                setEndDate(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider> */}
         </Box>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <ButtonError
@@ -240,7 +257,6 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
                   </TableCell>
                   <TableCell align="center" size="small">
                     <Tooltip
-                      children={undefined}
                       title="Detail"
                       arrow
                       onClick={() => {
@@ -262,7 +278,6 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
                       </IconButton>
                     </Tooltip>
                     <Tooltip
-                      children={undefined}
                       title="Delete"
                       arrow
                       onClick={() => {
@@ -292,18 +307,14 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
                       {item.username}
                     </Typography>
                   </TableCell>
-                  <TableCell size="small" align="center">
+                  <TableCell size="small">
                     <Typography
                       variant="body1"
                       color="text.primary"
                       gutterBottom
                       noWrap
                     >
-                      {item.parent_id ? (
-                        <Label color="success">User</Label>
-                      ) : (
-                        <Label color="info">Bot</Label>
-                      )}
+                      {item.parent_id ? 'No' : 'Yes'}
                     </Typography>
                   </TableCell>
                   <TableCell size="small">

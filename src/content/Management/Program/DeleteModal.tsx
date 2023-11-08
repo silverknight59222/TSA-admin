@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import axios from 'axios';
 import {
-  Slide,
   DialogTitle,
   Dialog,
   DialogActions,
@@ -13,16 +12,6 @@ import {
 // import { Formik, Field, Form, ErrorMessage, FieldProps } from 'formik';
 // import * as Yup from 'yup';
 import { successNotification } from '@/utils/notification';
-import { TransitionProps } from '@mui/material/transitions';
-
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement<any, any>;
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 function AddModal(props) {
   const { onClose, id, open } = props;
 
@@ -43,7 +32,6 @@ function AddModal(props) {
   return (
     <Dialog
       open={open}
-      TransitionComponent={Transition}
       keepMounted
       onClose={handleClose}
       aria-describedby="alert-dialog-slide-description"

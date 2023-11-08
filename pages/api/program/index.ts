@@ -8,7 +8,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
-        const querys = `SELECT * FROM program where is_deleted = false AND (name LIKE'%${query.search}%' OR description LIKE'%${query.search}%' ) `;
+        const querys = `SELECT * FROM program where is_deleted = false AND (name LIKE '%${query.search}%' OR description LIKE '%${query.search}%' ) `;
         const response = await db.query(querys);
         return res.json(response);
       } catch (error: any) {

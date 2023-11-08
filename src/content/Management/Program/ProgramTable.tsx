@@ -16,7 +16,6 @@ import {
   Typography,
   useTheme,
   Button,
-  InputAdornment,
   TextField
 } from '@mui/material';
 import { ProgramData } from '@/models/program';
@@ -70,15 +69,11 @@ const ProgramTable: FC<ProgramTableProps> = () => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [addData, setAddData] = useState({
+  const [addData, setAddData] = useState<object>({
     name: '',
     description: ''
   });
   const [deleteID, setDeleteID] = useState<string>('0');
-
-  useEffect(() => {
-    getList();
-  }, [addModalOpen, deleteModalOpen]);
 
   const getList = () => {
     axios
@@ -90,6 +85,10 @@ const ProgramTable: FC<ProgramTableProps> = () => {
       })
       .catch((error) => console.log('*******err', error.data));
   };
+
+  useEffect(() => {
+    getList();
+  }, [addModalOpen, deleteModalOpen]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -111,19 +110,25 @@ const ProgramTable: FC<ProgramTableProps> = () => {
         >
           <TextField
             fullWidth
+            size="small"
             InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchTwoToneIcon />
-                </InputAdornment>
-              ),
               onKeyDown: (event) => {
                 if (event.key === 'Enter') {
                   getList();
                 }
-              }
+              },
+              endAdornment: (
+                <IconButton
+                  onClick={() => getList()}
+                  type="button"
+                  sx={{ p: '10px' }}
+                  aria-label="search"
+                >
+                  <SearchTwoToneIcon />
+                </IconButton>
+              )
             }}
-            placeholder="Search..."
+            placeholder="Input search text."
             value={searchTerm}
             onChange={handleSearchChange}
           />
