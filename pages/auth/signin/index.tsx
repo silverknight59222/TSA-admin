@@ -76,7 +76,7 @@ const LoginPage = () => {
       email,
       password: values.password,
       redirect: true,
-      callbackurl: 'http://localhost:3000/dashboards'
+      callbackurl: 'https://tsa-admin.vercel.app/dashboards'
     })
       .then(async (response) => {
         if (response.status == 200) {
