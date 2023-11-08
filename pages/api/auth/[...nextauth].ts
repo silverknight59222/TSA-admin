@@ -15,9 +15,9 @@ export default NextAuth({
       //@ts-ignore
       async authorize(credentials: any) {
         await db.connect();
-
+        console.log(credentials);
         const user = await getUser(credentials.email);
-        console.log(user);
+        console.log('user', user);
         // Check if user exists
         if (!user) {
           return null;

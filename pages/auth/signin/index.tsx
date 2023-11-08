@@ -75,8 +75,7 @@ const LoginPage = () => {
     await signIn('credentials', {
       email,
       password: values.password,
-      redirect: true,
-      callbackurl: 'http://localhost:3000/dashboards'
+      redirect: true
     })
       .then(async (response) => {
         if (response.status == 200) {
@@ -86,6 +85,7 @@ const LoginPage = () => {
         }
       })
       .catch((error) => {
+        errorNotification(error);
         console.log('****** login error', error);
       })
       .finally(() => {
@@ -157,6 +157,7 @@ const LoginPage = () => {
               id="email"
               label="Email"
               sx={{ marginBottom: 1 }}
+              value={email}
               onChange={handleEmailChange}
               onKeyDown={(event) => {
                 if (event.key === 'Enter') {
