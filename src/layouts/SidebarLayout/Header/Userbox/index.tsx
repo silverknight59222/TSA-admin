@@ -15,13 +15,14 @@ import {
   Popover,
   Typography
 } from '@mui/material';
-
+import { getSession, signOut } from 'next-auth/react';
 import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
 import { styled } from '@mui/material/styles';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import { GetServerSidePropsContext } from 'next/types';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -137,7 +138,7 @@ function HeaderUserbox() {
         </List>
         <Divider />
         <Box sx={{ m: 1 }}>
-          <Button color="primary" fullWidth>
+          <Button color="primary" fullWidth onClick={() => signOut()}>
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
             Sign out
           </Button>
@@ -148,3 +149,19 @@ function HeaderUserbox() {
 }
 
 export default HeaderUserbox;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  console.log('********* login serverside ', session);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permananet: false
+      }
+    };
+  }
+  return {
+    props: { session }
+  };
+}

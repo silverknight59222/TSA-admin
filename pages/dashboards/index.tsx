@@ -11,11 +11,13 @@ import AccountBalance from '@/content/Dashboards/Crypto/AccountBalance';
 import Wallets from '@/content/Dashboards/Crypto/Wallets';
 import AccountSecurity from '@/content/Dashboards/Crypto/AccountSecurity';
 import WatchList from '@/content/Dashboards/Crypto/WatchList';
+import { GetServerSidePropsContext } from 'next/types';
+import { getSession } from 'next-auth/react';
 
 function DashboardCrypto() {
   return (
     <>
-      <Head>
+      <Head children={undefined}>
         <title>Crypto Dashboard</title>
       </Head>
       <PageTitleWrapper>
@@ -51,3 +53,19 @@ function DashboardCrypto() {
 DashboardCrypto.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
 export default DashboardCrypto;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  console.log('********* login serverside ', session);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permananet: false
+      }
+    };
+  }
+  return {
+    props: { session }
+  };
+}

@@ -3,6 +3,8 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 import { Grid } from '@mui/material';
 import Footer from '@/components/Footer';
 import ChatHistoryTable from '@/content/History/Chat/ChatHistoryTable';
+import { GetServerSidePropsContext } from 'next/types';
+import { getSession } from 'next-auth/react';
 
 function ApplicationsTransactions() {
   return (
@@ -32,3 +34,18 @@ ApplicationsTransactions.getLayout = (page) => (
 );
 
 export default ApplicationsTransactions;
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  console.log('********* login serverside ', session);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permananet: false
+      }
+    };
+  }
+  return {
+    props: { session }
+  };
+}

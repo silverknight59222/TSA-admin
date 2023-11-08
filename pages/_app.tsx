@@ -13,21 +13,23 @@ import createEmotionCache from 'src/createEmotionCache';
 import { SidebarProvider } from 'src/contexts/SidebarContext';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { AuthProvider } from '@/provider/useAuth';
-
+import { SessionProvider } from 'next-auth/react';
 const clientSideEmotionCache = createEmotionCache();
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
-interface TokyoAppProps extends AppProps {
+interface TSAAIAppProps extends AppProps {
   emotionCache?: EmotionCache;
   Component: NextPageWithLayout;
 }
-
-function TokyoApp(props: TokyoAppProps) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+function TSAAIApp(props: TSAAIAppProps) {
+  const {
+    Component,
+    emotionCache = clientSideEmotionCache,
+    pageProps: { session, ...pageProps }
+  } = props;
   const getLayout = Component.getLayout ?? ((page) => page);
 
   Router.events.on('routeChangeStart', nProgress.start);
@@ -36,15 +38,15 @@ function TokyoApp(props: TokyoAppProps) {
 
   return (
     <CacheProvider value={emotionCache}>
-      <Head>
+      <Head children={''}>
         <title>Tokyo Free White NextJS Typescript Admin Dashboard</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
       </Head>
-      <AuthProvider>
-        <SidebarProvider>
+      <SessionProvider session={session} children={''}>
+        <SidebarProvider children={''}>
           <ThemeProvider>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <CssBaseline />
@@ -52,9 +54,9 @@ function TokyoApp(props: TokyoAppProps) {
             </LocalizationProvider>
           </ThemeProvider>
         </SidebarProvider>
-      </AuthProvider>
+      </SessionProvider>
     </CacheProvider>
   );
 }
 
-export default TokyoApp;
+export default TSAAIApp;

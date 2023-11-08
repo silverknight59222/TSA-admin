@@ -50,7 +50,7 @@ const ButtonSearch = styled(Button)(
 function Status404() {
   return (
     <>
-      <Head>
+      <Head children={''}>
         <title>Status - 404</title>
       </Head>
       <MainContent>

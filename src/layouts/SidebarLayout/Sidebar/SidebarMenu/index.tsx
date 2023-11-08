@@ -198,19 +198,17 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                {/* <NextLink href="/dashboards/crypto" passHref> */}
-                <Button
-                  className={
-                    currentRoute === '/dashboards/crypto' ? 'active' : ''
-                  }
-                  disableRipple
-                  component="a"
-                  onClick={closeSidebar}
-                  startIcon={<BrightnessLowTwoToneIcon />}
-                >
-                  Dashboard
-                </Button>
-                {/* </NextLink> */}
+                <NextLink href="/dashboards" passHref>
+                  <Button
+                    className={currentRoute === '/dashboards' ? 'active' : ''}
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    Dashboard
+                  </Button>
+                </NextLink>
               </ListItem>
             </List>
           </SubMenuWrapper>

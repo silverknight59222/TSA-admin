@@ -6,6 +6,8 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import ProgramTable from '@/content/Management/Train/ProgramTable';
 import axios from 'axios';
+import { GetServerSidePropsContext } from 'next/types';
+import { getSession } from 'next-auth/react';
 
 function ApplicationsTransactions() {
   const [value, setValue] = React.useState('0');
@@ -69,3 +71,19 @@ ApplicationsTransactions.getLayout = (page) => (
 );
 
 export default ApplicationsTransactions;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  console.log('********* login serverside ', session);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permananet: false
+      }
+    };
+  }
+  return {
+    props: { session }
+  };
+}
