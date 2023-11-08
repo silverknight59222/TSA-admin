@@ -6,7 +6,7 @@ import { isPasswordValid } from '@/utils/hash';
 
 export default NextAuth({
   pages: {
-    signIn: '/auth/signin'
+    signIn: '/dashboards'
   },
   providers: [
     CredentialsProvider({
