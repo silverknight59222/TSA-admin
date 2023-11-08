@@ -599,10 +599,3 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
 };
 
 export default ProgramTable;
-function useState<T>(arg0: undefined[]): [any, any] {
-  throw new Error('Function not implemented.');
-}
-
-function useEffect(arg0: () => void, arg1: any[]) {
-  throw new Error('Function not implemented.');
-}
