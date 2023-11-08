@@ -110,8 +110,6 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
     content: '',
     time: 0
   });
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     getList();
   }, [detailModalOpen, deleteModalOpen]);
@@ -240,7 +238,6 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
                   </TableCell>
                   <TableCell align="center" size="small">
                     <Tooltip
-                      children={undefined}
                       title="Detail"
                       arrow
                       onClick={() => {
@@ -262,7 +259,6 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
                       </IconButton>
                     </Tooltip>
                     <Tooltip
-                      children={undefined}
                       title="Delete"
                       arrow
                       onClick={() => {

@@ -289,9 +289,7 @@ const LoginPage = () => {
   );
 };
 
-LoginPage.getLayout = (page: ReactNode) => (
-  <BlankLayout children>{page}</BlankLayout>
-);
+LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>;
 
 export default LoginPage;
 export async function getServerSideProps(context: GetServerSidePropsContext) {

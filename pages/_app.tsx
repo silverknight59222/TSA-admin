@@ -23,7 +23,12 @@ type NextPageWithLayout = NextPage & {
 interface TSAAIAppProps extends AppProps {
   emotionCache?: EmotionCache;
   Component: NextPageWithLayout;
+  pageProps: {
+    session: any; // Use correct type definition here instead of "any"
+    // other props
+  };
 }
+
 function TSAAIApp(props: TSAAIAppProps) {
   const {
     Component,
@@ -38,15 +43,15 @@ function TSAAIApp(props: TSAAIAppProps) {
 
   return (
     <CacheProvider value={emotionCache}>
-      <Head children={''}>
+      <Head>
         <title>Tokyo Free White NextJS Typescript Admin Dashboard</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
       </Head>
-      <SessionProvider session={session} children={''}>
-        <SidebarProvider children={''}>
+      <SessionProvider session={session}>
+        <SidebarProvider>
           <ThemeProvider>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <CssBaseline />

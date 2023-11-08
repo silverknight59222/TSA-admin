@@ -9,7 +9,10 @@ import { styled } from '@mui/material/styles';
 const Anchor = styled('a')({});
 
 interface NextLinkComposedProps
-  extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>,
+  extends Omit<
+      React.AnchorHTMLAttributes<HTMLAnchorElement>,
+      'href' | 'onTouchStart'
+    >, // omit `onTouchStart` here
     Omit<NextLinkProps, 'href' | 'as' | 'onClick' | 'onMouseEnter'> {
   to: NextLinkProps['href'];
   linkAs?: NextLinkProps['as'];

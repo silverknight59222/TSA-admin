@@ -17,7 +17,7 @@ import { getSession } from 'next-auth/react';
 function DashboardCrypto() {
   return (
     <>
-      <Head children={undefined}>
+      <Head>
         <title>Crypto Dashboard</title>
       </Head>
       <PageTitleWrapper>

@@ -109,8 +109,6 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
     content: '',
     time: 0
   });
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
   useEffect(() => {
     getList();
   }, [detailModalOpen, deleteModalOpen]);

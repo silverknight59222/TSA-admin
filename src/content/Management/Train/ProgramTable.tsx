@@ -430,7 +430,6 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                   </TableCell>
                   <TableCell align="center">
                     <Tooltip
-                      children={undefined}
                       title="Edit"
                       arrow
                       onClick={() => {
@@ -454,7 +453,6 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                     <Tooltip
                       title="Delete"
                       arrow
-                      children={undefined}
                       onClick={() => {
                         setDeleteID(item.id.toString());
                         setDeleteModalOpen(true);
