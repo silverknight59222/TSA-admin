@@ -23,8 +23,7 @@ import {
   useTheme,
   CardHeader,
   Button,
-  TextField,
-  CircularProgress
+  TextField
 } from '@mui/material';
 import Label from '@/components/Label';
 import { ProgramData, ProgramDataStatus } from '@/models/program_data';
@@ -67,8 +66,7 @@ const getStatusLabel = (ProgramDataStatus: ProgramDataStatus): JSX.Element => {
     }
   };
   const { text, color }: any = map[ProgramDataStatus];
-  if (text === 'Training') return <CircularProgress />;
-  else return <Label color={color}>{text}</Label>;
+  return <Label color={color}>{text}</Label>;
 };
 
 const applyFilters = (
@@ -134,7 +132,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(5);
   const [filters, setFilters] = useState<Filters>({
-    status: null
+    status: 'completed'
   });
 
   const statusOptions = [
@@ -601,3 +599,10 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
 };
 
 export default ProgramTable;
+function useState<T>(arg0: undefined[]): [any, any] {
+  throw new Error('Function not implemented.');
+}
+
+function useEffect(arg0: () => void, arg1: any[]) {
+  throw new Error('Function not implemented.');
+}

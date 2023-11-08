@@ -73,9 +73,10 @@ const LoginPage = () => {
     setLoading(true);
     console.log('Email: ', email, values);
     await signIn('credentials', {
-      redirect: false,
       email,
-      password: values.password
+      password: values.password,
+      redirect: true,
+      callbackurl: 'http://localhost:3000/dashboards'
     })
       .then(async (response) => {
         if (response.status == 200) {
@@ -217,7 +218,7 @@ const LoginPage = () => {
             >
               Login
             </LoadingButton>
-            <Box
+            {/* <Box
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -233,7 +234,7 @@ const LoginPage = () => {
                   <LinkStyled>Create an account</LinkStyled>
                 </Link>
               </Typography>
-            </Box>
+            </Box> */}
             <Divider sx={{ my: 1.5 }}>or</Divider>
             <Box
               sx={{

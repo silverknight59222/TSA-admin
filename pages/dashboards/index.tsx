@@ -18,7 +18,7 @@ function DashboardCrypto() {
   return (
     <>
       <Head>
-        <title>Crypto Dashboard</title>
+        <title>TSA AI Admin Dashboard</title>
       </Head>
       <PageTitleWrapper>
         <PageHeader />

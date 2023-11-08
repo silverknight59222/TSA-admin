@@ -7,13 +7,23 @@ function Overview() {
   return <></>;
 }
 
-//@ts-ignore
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const session = await getSession({ req: context.req });
+export default Overview;
 
-  if (session) {
+Overview.getLayout = function getLayout(page: ReactElement) {
+  return <BaseLayout>{page}</BaseLayout>;
+};
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  console.log('********* login serverside ', session);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permananet: false
+      }
+    };
+  } else {
     return {
       redirect: {
         destination: '/dashboards',
@@ -21,14 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (
       }
     };
   }
-
   return {
     props: { session }
   };
-};
-
-export default Overview;
-
-Overview.getLayout = function getLayout(page: ReactElement) {
-  return <BaseLayout>{page}</BaseLayout>;
-};
+}
