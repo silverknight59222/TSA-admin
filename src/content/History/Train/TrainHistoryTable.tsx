@@ -20,23 +20,24 @@ import {
   Button,
   TextField
 } from '@mui/material';
-import { ChatHistoryData } from '@/models/chat_history';
+import { TrainHistoryData, TrainStatus } from '@/models/train_history';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import SearchIcon from '@mui/icons-material/Search';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { styled } from '@mui/material/styles';
 import DeleteModal from './DeleteModal';
 import DetailModal from './DetailModal';
+import Label from '@/components/Label';
 
-interface ChatHistoryTalbeProps {
+interface TrainHistoryTalbeProps {
   className?: string;
 }
 
 const applyPagination = (
-  hisotryDatas: ChatHistoryData[],
+  hisotryDatas: TrainHistoryData[],
   page: number,
   limit: number
-): ChatHistoryData[] => {
+): TrainHistoryData[] => {
   return hisotryDatas.slice(page * limit, page * limit + limit);
 };
 
@@ -50,7 +51,7 @@ const ButtonError = styled(Button)(
      }
     `
 );
-const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
+const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
   const [selectedHistoryDatas, setSelectedHistoryDatas] = useState<number[]>(
     []
   );
@@ -105,23 +106,49 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [deleteID, setDeleteID] = useState<number>(0);
   const [detailData, setDetailData] = useState({
-    username: '',
-    content: '',
-    time: 0
+    start_at: '',
+    completed_at: '',
+    data: {},
+    created_at: '',
+    status: ''
   });
-  useEffect(() => {
-    getList();
-  }, [detailModalOpen, deleteModalOpen]);
 
   const getList = () => {
     axios
-      .get('/api/history/chat', {
+      .get('/api/history/train', {
         params: { search: searchTerm }
       })
       .then((res) => {
         setHisotryDatas(res.data);
       })
       .catch((error) => console.log('*******err', error.data));
+  };
+
+  useEffect(() => {
+    getList();
+  }, [detailModalOpen, deleteModalOpen]);
+
+  const getStatusLabel = (TrainStatus: TrainStatus): JSX.Element => {
+    const map = {
+      failed: {
+        text: 'Failed',
+        color: 'error'
+      },
+      completed: {
+        text: 'Completed',
+        color: 'success'
+      },
+      undefined: {
+        text: 'Pending',
+        color: 'warning'
+      },
+      training: {
+        text: 'Training',
+        color: 'primary'
+      }
+    };
+    const { text, color }: any = map[TrainStatus];
+    return <Label color={color}>{text}</Label>;
   };
 
   const handleSearchChange = (event) => {
@@ -183,24 +210,6 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
             value={searchTerm}
             onChange={handleSearchChange}
           />
-          {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label="Start date"
-              value={startDate}
-              onChange={(newValue) => {
-                setStartDate(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <DatePicker
-              label="End date"
-              value={endDate}
-              onChange={(newValue) => {
-                setEndDate(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider> */}
         </Box>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <ButtonError
@@ -231,9 +240,10 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
               </TableCell>
               <TableCell align="center">Actions</TableCell>
               <TableCell align="center">Name</TableCell>
-              <TableCell align="center">Bot</TableCell>
-              <TableCell align="center">Time</TableCell>
-              <TableCell>Message</TableCell>
+              <TableCell align="center">Start</TableCell>
+              <TableCell align="center">End</TableCell>
+              <TableCell align="center">Data</TableCell>
+              <TableCell align="center">Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -312,7 +322,7 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
                       gutterBottom
                       noWrap
                     >
-                      {item.parent_id ? 'No' : 'Yes'}
+                      {showTime(item.start_at)}
                     </Typography>
                   </TableCell>
                   <TableCell size="small">
@@ -322,7 +332,7 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
                       gutterBottom
                       noWrap
                     >
-                      {showTime(item.time)}
+                      {showTime(item.completed_at)}
                     </Typography>
                   </TableCell>
                   <TableCell size="small">
@@ -332,9 +342,17 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
                       gutterBottom
                       noWrap
                     >
-                      {item.content.length > 50
-                        ? item.content.substring(0, 100) + '...'
-                        : item.content}
+                      {item.data}
+                    </Typography>
+                  </TableCell>
+                  <TableCell size="small">
+                    <Typography
+                      variant="body1"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {getStatusLabel(item.status)}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -368,9 +386,11 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
         onClose={() => {
           setDetailModalOpen(false);
           setDetailData({
-            username: '',
-            content: '',
-            time: 0
+            start_at: '',
+            completed_at: '',
+            data: {},
+            created_at: '',
+            status: ''
           });
         }}
       />
@@ -378,4 +398,4 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
   );
 };
 
-export default ChatHistoryTable;
+export default TrainHistoryTable;

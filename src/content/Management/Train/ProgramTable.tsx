@@ -262,6 +262,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
           axios.get(`/api/train/${trainId}`).then((res) => {
             if (res.data[0].status == 'completed') {
               successNotification('Training is done.');
+              getList();
               setTrainId(0);
             }
           });

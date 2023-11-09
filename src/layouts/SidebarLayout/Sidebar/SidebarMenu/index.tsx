@@ -295,17 +295,19 @@ function SidebarMenu() {
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                {/* <NextLink href="/history/train" passHref> */}
-                <Button
-                  className={currentRoute === '/history/train' ? 'active' : ''}
-                  disableRipple
-                  component="a"
-                  onClick={closeSidebar}
-                  startIcon={<ModelTrainingIcon />}
-                >
-                  Train History
-                </Button>
-                {/* </NextLink> */}
+                <NextLink href="/history/train" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/history/train' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<ModelTrainingIcon />}
+                  >
+                    Train History
+                  </Button>
+                </NextLink>
               </ListItem>
             </List>
           </SubMenuWrapper>

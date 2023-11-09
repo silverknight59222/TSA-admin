@@ -1,11 +1,10 @@
 import Head from 'next/head';
 import SidebarLayout from '@/layouts/SidebarLayout';
-// import PageHeader from '@/content/Management/Train/PageHeader';
-import PageTitleWrapper from '@/components/PageTitleWrapper';
-import { Grid, Container } from '@mui/material';
+import { Grid } from '@mui/material';
 import Footer from '@/components/Footer';
-
-// import RecentOrders from '@/content/Management/Train/RecentOrders';
+import TrainHistoryTable from '@/content/History/Train/TrainHistoryTable';
+import { GetServerSidePropsContext } from 'next/types';
+import { getSession } from 'next-auth/react';
 
 function ApplicationsTransactions() {
   return (
@@ -13,20 +12,16 @@ function ApplicationsTransactions() {
       <Head>
         <title>Transactions - Applications</title>
       </Head>
-      <PageTitleWrapper>{/* <PageHeader /> */}</PageTitleWrapper>
-      <Container maxWidth="lg">
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="stretch"
-          spacing={3}
-        >
-          <Grid item xs={12}>
-            {/* <RecentOrders /> */}
-          </Grid>
-        </Grid>
-      </Container>
+      <Grid
+        style={{
+          backgroundColor: 'white',
+          height: '100%',
+          width: '100%',
+          padding: '8px'
+        }}
+      >
+        <TrainHistoryTable />
+      </Grid>
       <Footer />
     </>
   );
@@ -37,3 +32,17 @@ ApplicationsTransactions.getLayout = (page) => (
 );
 
 export default ApplicationsTransactions;
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permananet: false
+      }
+    };
+  }
+  return {
+    props: { session }
+  };
+}

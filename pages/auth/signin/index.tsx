@@ -79,10 +79,8 @@ const LoginPage = () => {
     })
       .then(async (response) => {
         if (response.status == 200) {
-          console.log('*************success');
           router.push('/dashboards');
         } else {
-          console.log('*************error');
           errorNotification(response.error);
         }
       })

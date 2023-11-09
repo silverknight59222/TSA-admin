@@ -18,8 +18,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     case 'POST':
       try {
         const query =
-          'INSERT INTO train(start_at, status) VALUES ($1, $2) RETURNING *';
-        const values = [new Date(), 'training'];
+          'INSERT INTO train(start_at, status, created_at, created_by) VALUES ($1, $2, $3, $4) RETURNING *';
+        const values = [new Date(), 'training', new Date(), body.user];
         const response = await db.query(query, values);
         const querys = `SELECT data.*, program.name as program_name from data LEFT JOIN program ON program_id = program.ID WHERE program_id = ${body.program_id} AND data.is_deleted = FALSE order by data.id`;
         const data = await db.query(querys);
