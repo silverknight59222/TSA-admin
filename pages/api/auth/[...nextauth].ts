@@ -20,7 +20,7 @@ export default NextAuth({
         console.log('user', user);
         // Check if user exists
         if (!user) {
-          return null;
+          return 'user error';
         }
 
         // Validate password

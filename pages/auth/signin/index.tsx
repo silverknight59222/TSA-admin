@@ -72,7 +72,7 @@ const LoginPage = () => {
   const authenticate = async () => {
     setLoading(true);
     console.log('Email: ', email, values);
-    await signIn('credentials', {
+    signIn('credentials', {
       email,
       password: values.password,
       redirect: true
