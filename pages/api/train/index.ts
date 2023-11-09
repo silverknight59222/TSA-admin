@@ -8,8 +8,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     case 'PUT':
       try {
         const { id, status } = body;
-        const query = `UPDATE train SET status=$1 WHERE id = $2`;
-        const values = [status, id];
+        const query = `UPDATE train SET status=$1, completed_at=$2 WHERE id = $3`;
+        const values = [status, new Date(), id];
         await db.query(query, values);
         return res.json({ id, status });
       } catch (error: any) {
@@ -19,7 +19,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       try {
         const query =
           'INSERT INTO train(start_at, status, created_at, created_by) VALUES ($1, $2, $3, $4) RETURNING *';
-        const values = [new Date(), 'training', new Date(), body.user];
+        const values = [new Date(), 'training', new Date(), 1];
         const response = await db.query(query, values);
         const querys = `SELECT data.*, program.name as program_name from data LEFT JOIN program ON program_id = program.ID WHERE program_id = ${body.program_id} AND data.is_deleted = FALSE order by data.id`;
         const data = await db.query(querys);
