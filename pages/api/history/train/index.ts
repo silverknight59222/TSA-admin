@@ -8,7 +8,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     case 'PUT':
       try {
         const { id, status, train_id } = body;
-        const query = `UPDATE train_history SET status=$1 WHERE data_id = $3 and train_id = $4`;
+        const query = `UPDATE train_history SET status=$1 WHERE data_id = $2 and train_id = $3`;
         const values = [status, id, train_id];
         console.log(query);
         await db.query(query, values);
