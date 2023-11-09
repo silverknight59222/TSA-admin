@@ -294,19 +294,19 @@ const LoginPage = () => {
 LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>;
 
 export default LoginPage;
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context);
-  console.log(session);
-  console.log('********* login serverside ', session);
-  if (session) {
-    return {
-      redirect: {
-        destination: '/dashboards',
-        permananet: false
-      }
-    };
-  }
-  return {
-    props: { session }
-  };
-}
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//   const session = await getSession(context);
+//   console.log(session);
+//   console.log('********* login serverside ', session);
+//   if (session) {
+//     return {
+//       redirect: {
+//         destination: '/dashboards',
+//         permananet: false
+//       }
+//     };
+//   }
+//   return {
+//     props: { session }
+//   };
+// }
