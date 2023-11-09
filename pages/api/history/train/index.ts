@@ -11,6 +11,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         const query = `UPDATE train_history SET status=$1 WHERE data_id = $2 and train_id = $3`;
         const values = [status, id, train_id];
         await db.query(query, values);
+        const q = `UPDATE data SET status=$1 WHERE data_id = $2 and train_id = $3`;
+        await db.query(q, values);
         return res.json({ id, status, train_id });
       } catch (error: any) {
         return res.status(400).json({ message: error.message });

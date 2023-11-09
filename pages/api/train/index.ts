@@ -28,6 +28,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
             'INSERT INTO train_history(train_id, data_id, status) VALUES ($1, $2, $3) RETURNING *';
           const val = [response[0].id, item.id, 'training'];
           await db.query(q, val);
+          const udpate_q = `UPDATE data SET status='training' WHERE id = ${item.id}`;
+          await db.query(udpate_q);
         });
         await Promise.all(promises);
         const udpate_query = `UPDATE data SET train_id=${response[0].id} WHERE program_id = ${body.program_id}`;

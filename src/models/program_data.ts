@@ -1,4 +1,9 @@
-export type ProgramDataStatus = 'completed' | 'pending' | 'failed' | 'training';
+export type ProgramDataStatus =
+  | 'completed'
+  | 'pending'
+  | 'failed'
+  | 'training'
+  | 'all';
 
 export interface ProgramData {
   id: number;

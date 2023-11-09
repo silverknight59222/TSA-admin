@@ -76,7 +76,11 @@ const applyFilters = (
   return programDatas.filter((cryptoOrder) => {
     let matches = true;
 
-    if (filters.status && cryptoOrder.status !== filters.status) {
+    if (
+      filters.status &&
+      filters.status != 'all' &&
+      cryptoOrder.status !== filters.status
+    ) {
       matches = false;
     }
 
@@ -132,7 +136,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(5);
   const [filters, setFilters] = useState<Filters>({
-    status: 'completed'
+    status: 'all'
   });
 
   const statusOptions = [
@@ -239,6 +243,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         params: { search: searchTerm }
       })
       .then((res) => {
+        console.log(res.data);
         setProgramDatas(res.data);
       })
       .catch((error) => console.log('*******err', error.data));
