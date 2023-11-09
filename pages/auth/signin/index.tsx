@@ -18,8 +18,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import MuiFormControlLabel, {
   FormControlLabelProps
 } from '@mui/material/FormControlLabel';
-import { getSession, signIn } from 'next-auth/react';
-import { GetServerSidePropsContext } from 'next/types';
+import { signIn } from 'next-auth/react';
+// import { GetServerSidePropsContext } from 'next/types';
 import { errorNotification } from '@/utils/notification';
 
 // ** Icons Imports
