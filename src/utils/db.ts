@@ -51,9 +51,9 @@ export async function getTokenByToken(token: string) {
   FROM token
   WHERE token='${token}'`;
 
-  const [rows, fields] = await db.query(query);
-  console.log('***** getTokenByToken', fields.length);
-  return rows[0];
+  const res = await db.query(query);
+  console.log('***** getTokenByToken', res.length);
+  return res[0];
 }
 
 export async function deleteToken(id: number) {

@@ -63,7 +63,7 @@ export default async function handle(
 
             transporter
               .sendMail({
-                from: `Phoebe Freedom<${process.env.EMAIL}>`,
+                from: `TSA AI<${process.env.EMAIL}>`,
                 to: user.email,
                 subject: 'Reset Password',
                 text: 'Reset Password Messsage',
@@ -75,8 +75,8 @@ export default async function handle(
               <p style="color: #000000;">Once you click the link, you will be directed to a page where you can enter and confirm your new password.</p>
               <p style="color: #000000;">If you did not initiate this password reset request or believe this email was sent to you in error, please disregard it.Your account security is important to us.</p>
               <p style="color: #000000;">Should you encounter any issues or require further assistance, please do not hesitate to reply to this email. We will promptly provide the support you need.</p>
-              <p style="color: #000000;">Yours in Freedom</p>
-              <p style="color: #000000;">Phoebe</p>
+              <p style="color: #000000;">Thanks.</p>
+              <p style="color: #000000;">TSA AI</p>
             </div>              
             `
               })

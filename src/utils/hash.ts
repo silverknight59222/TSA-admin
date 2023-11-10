@@ -10,6 +10,5 @@ export async function isPasswordValid(
   hashedPassword: string
 ) {
   const isValid = await compare(password, hashedPassword);
-  console.log(isValid);
-  return true;
+  return isValid;
 }
