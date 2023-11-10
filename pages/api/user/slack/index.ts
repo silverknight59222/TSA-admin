@@ -60,7 +60,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }
     case 'GET':
       try {
-        const querys = `select * from slack_user where id=${query.id}`;
+        const querys = `select * from slack_user where id = '${query.id}'`;
         const response = await db.query(querys);
         return res.json(response);
       } catch (error: any) {
