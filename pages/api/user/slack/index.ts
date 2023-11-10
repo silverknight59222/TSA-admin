@@ -3,7 +3,7 @@ import db from '@/utils/database';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  const { method, body } = req;
+  const { method, body, query } = req;
   switch (method) {
     case 'POST':
       try {
@@ -57,6 +57,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         return res.json(response);
       } catch (error: any) {
         return res.status(400).json({ message: error.message });
+      }
+    case 'GET':
+      try {
+        const querys = `select * from slack_user where id=${query.id}`;
+        const response = await db.query(querys);
+        return res.json(response);
+      } catch (error: any) {
+        return res.status(400).json(query);
       }
     default:
       return res.status(400).json({ message: 'Method are not supported' });
