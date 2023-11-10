@@ -64,7 +64,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         const response = await db.query(querys);
         return res.json(response);
       } catch (error: any) {
-        return res.status(400).json(query);
+        return res.status(400).json([error.message, query, query.id]);
       }
     default:
       return res.status(400).json({ message: 'Method are not supported' });
