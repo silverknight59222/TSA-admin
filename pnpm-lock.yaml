@@ -77,15 +77,21 @@ dependencies:
   mdi-material-ui:
     specifier: ^7.7.0
     version: 7.7.0(@mui/material@5.8.2)(react@17.0.2)
+  nanoid:
+    specifier: ^5.0.3
+    version: 5.0.3
   next:
     specifier: ^12.1.6
     version: 12.3.4(react-dom@17.0.2)(react@17.0.2)
   next-auth:
     specifier: ^4.24.4
-    version: 4.24.4(next@12.3.4)(react-dom@17.0.2)(react@17.0.2)
+    version: 4.24.4(next@12.3.4)(nodemailer@6.9.7)(react-dom@17.0.2)(react@17.0.2)
   next-images:
     specifier: 1.8.4
     version: 1.8.4(webpack@5.89.0)
+  nodemailer:
+    specifier: ^6.9.7
+    version: 6.9.7
   nprogress:
     specifier: 0.2.0
     version: 0.2.0
@@ -3018,6 +3024,12 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /nanoid@5.0.3:
+    resolution: {integrity: sha512-I7X2b22cxA4LIHXPSqbBCEQSL+1wv8TuoefejsX4HFWyC6jc5JG7CEaxOltiKjc1M+YCS2YkrZZcj4+dytw9GA==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    dev: false
+
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
@@ -3031,7 +3043,7 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: false
 
-  /next-auth@4.24.4(next@12.3.4)(react-dom@17.0.2)(react@17.0.2):
+  /next-auth@4.24.4(next@12.3.4)(nodemailer@6.9.7)(react-dom@17.0.2)(react@17.0.2):
     resolution: {integrity: sha512-5DGffi+OpkbU62vPQIJ1z+hFnmow+ec5Qrn9m6eoglIO51m0DlrmLxBduZEwKAYDEg9k2joi1yelgmq1vqK3aQ==}
     peerDependencies:
       next: ^12.2.5 || ^13 || ^14
@@ -3047,6 +3059,7 @@ packages:
       cookie: 0.5.0
       jose: 4.15.4
       next: 12.3.4(react-dom@17.0.2)(react@17.0.2)
+      nodemailer: 6.9.7
       oauth: 0.9.15
       openid-client: 5.6.1
       preact: 10.18.2
@@ -3119,6 +3132,11 @@ packages:
 
   /node-releases@2.0.13:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
+    dev: false
+
+  /nodemailer@6.9.7:
+    resolution: {integrity: sha512-rUtR77ksqex/eZRLmQ21LKVH5nAAsVicAtAYudK7JgwenEDZ0UIQ1adUGqErz7sMkWYxWTTU1aeP2Jga6WQyJw==}
+    engines: {node: '>=6.0.0'}
     dev: false
 
   /nprogress@0.2.0:

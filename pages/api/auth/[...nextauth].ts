@@ -1,8 +1,16 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import getUser from './user';
+import { getUser } from '../../../src/utils/db';
 import db from '@/utils/database';
 import { isPasswordValid } from '@/utils/hash';
+
+interface SessionUser {
+  id: number;
+  name: string;
+  email: string;
+  reset: boolean;
+  accessToken?: string;
+}
 
 export default NextAuth({
   pages: {
@@ -34,13 +42,29 @@ export default NextAuth({
         }
 
         return {
+          id: user.id,
           name: user.name,
-          email: user.email
+          email: user.email,
+          reset: user.reset
         };
       }
     })
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) token.user = user;
+      return token;
+    },
 
+    async session({ session, token, ...rest }) {
+      console.log('****** session', rest);
+      if (token.user) {
+        session.user = token.user as SessionUser;
+        return session;
+      }
+      return null;
+    }
+  },
   secret: process.env.SECRET,
   session: {
     strategy: 'jwt',

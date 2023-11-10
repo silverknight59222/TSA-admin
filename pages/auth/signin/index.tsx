@@ -18,7 +18,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import MuiFormControlLabel, {
   FormControlLabelProps
 } from '@mui/material/FormControlLabel';
-import { signIn } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 // import { GetServerSidePropsContext } from 'next/types';
 import { errorNotification } from '@/utils/notification';
 
@@ -32,6 +32,7 @@ import EyeOffOutline from 'mdi-material-ui/EyeOffOutline';
 
 // ** Layout Import
 import BlankLayout from '@/layouts/BlankLayout';
+import { GetServerSidePropsContext } from 'next/types';
 
 interface State {
   password: string;
@@ -203,10 +204,8 @@ const LoginPage = () => {
               }}
             >
               <FormControlLabel control={<Checkbox />} label="Remember Me" />
-              <Link passHref href="/">
-                <LinkStyled onClick={(e) => e.preventDefault()}>
-                  Forgot Password?
-                </LinkStyled>
+              <Link passHref href="/reset-password">
+                <LinkStyled>Forgot Password?</LinkStyled>
               </Link>
             </Box>
             <LoadingButton
@@ -219,7 +218,7 @@ const LoginPage = () => {
             >
               Login
             </LoadingButton>
-            {/* <Box
+            <Box
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -235,7 +234,7 @@ const LoginPage = () => {
                   <LinkStyled>Create an account</LinkStyled>
                 </Link>
               </Typography>
-            </Box> */}
+            </Box>
             <Divider sx={{ my: 1.5 }}>or</Divider>
             <Box
               sx={{
@@ -294,19 +293,19 @@ const LoginPage = () => {
 LoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>;
 
 export default LoginPage;
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//   const session = await getSession(context);
-//   console.log(session);
-//   console.log('********* login serverside ', session);
-//   if (session) {
-//     return {
-//       redirect: {
-//         destination: '/dashboards',
-//         permananet: false
-//       }
-//     };
-//   }
-//   return {
-//     props: { session }
-//   };
-// }
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getSession(context);
+  console.log(session);
+  console.log('********* login serverside ', session);
+  if (session) {
+    return {
+      redirect: {
+        destination: '/management/program',
+        permananet: false
+      }
+    };
+  }
+  return {
+    props: { session }
+  };
+}
