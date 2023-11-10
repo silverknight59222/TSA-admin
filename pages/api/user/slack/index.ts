@@ -66,6 +66,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       } catch (error: any) {
         return res.status(400).json([error.message, query, query.id]);
       }
+    case 'PUT':
+      try {
+        const { id, data } = body;
+        const query = `UPDATE slack_user SET data=$1 WHERE id = $2`;
+        const values = [data, id];
+        const response = await db.query(query, values);
+        return res.json(response);
+      } catch (error: any) {
+        return res.status(400).json({ message: error.message });
+      }
     default:
       return res.status(400).json({ message: 'Method are not supported' });
   }
