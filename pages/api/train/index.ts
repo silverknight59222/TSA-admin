@@ -3,7 +3,7 @@ import db from '@/utils/database';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  const { method, body } = req;
+  const { method, body, query } = req;
   switch (method) {
     case 'PUT':
       try {
@@ -13,6 +13,24 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         await db.query(query, values);
         return res.json({ id, status });
       } catch (error: any) {
+        return res.status(400).json({ message: error.message });
+      }
+    case 'GET':
+      try {
+        let q = '';
+        if (query.search)
+          q += `and (users.name like '%${query.search}%' or program.name like '%${query.search}%' or users.name like '%${query.search}%')`;
+        const querys = `select train.*, users.name as username, program.name as program_name from train 
+        left join users on users.id = train.created_by 
+        left join train_history on train_history.train_id = train.id
+				left join data on data.id = train_history.data_id
+        left join program on program.id = data.program_id
+        where train.is_deleted = false ${q}
+        group by train.id, users.name, program.name order by created_at desc`;
+        const response = await db.query(querys);
+        return res.json(response);
+      } catch (error: any) {
+        console.log(error.message);
         return res.status(400).json({ message: error.message });
       }
     case 'POST':

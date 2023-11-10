@@ -29,7 +29,7 @@ function DeleteModal(props) {
   const handleOk = () => {
     if (id != 0)
       axios
-        .delete(`/api/history/chat/${id}`)
+        .delete(`/api/train/${id}`)
         .then(async () => {
           onClose();
           successNotification('Successful.');
@@ -37,7 +37,7 @@ function DeleteModal(props) {
         .catch((error) => console.log('*******err', error.data));
     else {
       axios
-        .post(`/api/history/chat/deletemany`, { ids: ids })
+        .post(`/api/train/deletemany`, { ids: ids })
         .then(async () => {
           onClose();
           successNotification('Successful.');

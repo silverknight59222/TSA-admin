@@ -22,4 +22,5 @@ export interface ProgramData {
   created_by: number;
   updated_at: dateFns;
   updated_by: number;
+  dataid: number;
 }

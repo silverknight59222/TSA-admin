@@ -26,7 +26,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   } else {
     return {
       redirect: {
-        destination: '/dashboards',
+        destination: '/management/program',
         permananet: false
       }
     };

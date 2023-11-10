@@ -13,8 +13,8 @@ import {
 import NextLink from 'next/link';
 import { SidebarContext } from 'src/contexts/SidebarContext';
 
-import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
-import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
+// import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
+// import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
 import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
 import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 
@@ -168,7 +168,7 @@ function SidebarMenu() {
   return (
     <>
       <MenuWrapper>
-        <List component="div">
+        {/* <List component="div">
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
@@ -186,8 +186,8 @@ function SidebarMenu() {
               </ListItem>
             </List>
           </SubMenuWrapper>
-        </List>
-        <List
+        </List> */}
+        {/* <List
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
@@ -212,7 +212,7 @@ function SidebarMenu() {
               </ListItem>
             </List>
           </SubMenuWrapper>
-        </List>
+        </List> */}
         <List
           component="div"
           subheader={
@@ -253,21 +253,21 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
-              <ListItem component="div">
-                {/* <NextLink href="/management/prompt" passHref> */}
-                <Button
-                  className={
-                    currentRoute === '/management/prompt' ? 'active' : ''
-                  }
-                  disableRipple
-                  component="a"
-                  onClick={closeSidebar}
-                  startIcon={<TableChartTwoToneIcon />}
-                >
-                  Prompt Management
-                </Button>
-                {/* </NextLink> */}
-              </ListItem>
+              {/* <ListItem component="div">
+                <NextLink href="/management/prompt" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/management/prompt' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<TableChartTwoToneIcon />}
+                  >
+                    Prompt Management
+                  </Button>
+                </NextLink>
+              </ListItem> */}
             </List>
           </SubMenuWrapper>
         </List>

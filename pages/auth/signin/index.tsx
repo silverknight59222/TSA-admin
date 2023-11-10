@@ -79,7 +79,7 @@ const LoginPage = () => {
     })
       .then(async (response) => {
         if (response.status == 200) {
-          router.push('/dashboards');
+          router.push('/management/program');
         } else {
           errorNotification(response.error);
         }

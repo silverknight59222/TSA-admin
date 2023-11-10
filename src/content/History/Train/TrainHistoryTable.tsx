@@ -28,6 +28,7 @@ import { styled } from '@mui/material/styles';
 import DeleteModal from './DeleteModal';
 import DetailModal from './DetailModal';
 import Label from '@/components/Label';
+import { format } from 'date-fns';
 
 interface TrainHistoryTalbeProps {
   className?: string;
@@ -106,16 +107,18 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [deleteID, setDeleteID] = useState<number>(0);
   const [detailData, setDetailData] = useState({
+    id: 0,
     start_at: '',
     completed_at: '',
-    data: {},
     created_at: '',
-    status: ''
+    status: '',
+    username: '',
+    program_name: ''
   });
 
   const getList = () => {
     axios
-      .get('/api/history/train', {
+      .get('/api/train', {
         params: { search: searchTerm }
       })
       .then((res) => {
@@ -156,22 +159,8 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
   };
 
   const showTime = (time) => {
-    const date = new Date(time * 1000);
-    const formattedDate =
-      date.getFullYear() +
-      '-' +
-      ('0' + (date.getMonth() + 1)).slice(-2) +
-      '-' +
-      ('0' + date.getDate()).slice(-2) +
-      ' ' +
-      ('0' + date.getHours()).slice(-2) +
-      ':' +
-      ('0' + date.getMinutes()).slice(-2) +
-      ':' +
-      ('0' + date.getSeconds()).slice(-2);
-    return formattedDate;
+    return time ? format(new Date(time), 'yyyy-MM-dd h:m:s') : null;
   };
-
   return (
     <Card style={{ marginTop: '8px' }}>
       <Box
@@ -240,10 +229,10 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
               </TableCell>
               <TableCell align="center">Actions</TableCell>
               <TableCell align="center">Name</TableCell>
+              <TableCell align="center">ProgramName</TableCell>
+              <TableCell align="center">Status</TableCell>
               <TableCell align="center">Start</TableCell>
               <TableCell align="center">End</TableCell>
-              <TableCell align="center">Data</TableCell>
-              <TableCell align="center">Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -305,7 +294,7 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
                       </IconButton>
                     </Tooltip>
                   </TableCell>
-                  <TableCell size="small">
+                  <TableCell align="center" size="small">
                     <Typography
                       variant="body1"
                       color="text.primary"
@@ -315,7 +304,27 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
                       {item.username}
                     </Typography>
                   </TableCell>
-                  <TableCell size="small">
+                  <TableCell align="center" size="small">
+                    <Typography
+                      variant="body1"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {item.program_name}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center" size="small">
+                    <Typography
+                      variant="body1"
+                      color="text.primary"
+                      gutterBottom
+                      noWrap
+                    >
+                      {getStatusLabel(item.status)}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center" size="small">
                     <Typography
                       variant="body1"
                       color="text.primary"
@@ -325,7 +334,7 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
                       {showTime(item.start_at)}
                     </Typography>
                   </TableCell>
-                  <TableCell size="small">
+                  <TableCell align="center" size="small">
                     <Typography
                       variant="body1"
                       color="text.primary"
@@ -333,26 +342,6 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
                       noWrap
                     >
                       {showTime(item.completed_at)}
-                    </Typography>
-                  </TableCell>
-                  <TableCell size="small">
-                    <Typography
-                      variant="body1"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.data}
-                    </Typography>
-                  </TableCell>
-                  <TableCell size="small">
-                    <Typography
-                      variant="body1"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {getStatusLabel(item.status)}
                     </Typography>
                   </TableCell>
                 </TableRow>
@@ -378,6 +367,7 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
         ids={selectedHistoryDatas}
         onClose={() => {
           setDeleteModalOpen(false);
+          setSelectedHistoryDatas([]);
         }}
       />
       <DetailModal
@@ -385,12 +375,15 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
         data={detailData}
         onClose={() => {
           setDetailModalOpen(false);
+          setSelectedHistoryDatas([]);
           setDetailData({
+            id: 0,
             start_at: '',
             completed_at: '',
-            data: {},
             created_at: '',
-            status: ''
+            status: '',
+            username: '',
+            program_name: ''
           });
         }}
       />

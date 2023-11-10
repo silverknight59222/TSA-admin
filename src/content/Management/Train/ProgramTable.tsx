@@ -579,6 +579,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         id={deleteID}
         ids={selectedprogramDatas}
         onClose={() => {
+          setSelectedprogramDatas([]);
           setDeleteModalOpen(false);
         }}
       />
@@ -598,6 +599,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
             video_implement: '',
             doc_link: ''
           });
+          setSelectedprogramDatas([]);
         }}
       />
     </Card>
