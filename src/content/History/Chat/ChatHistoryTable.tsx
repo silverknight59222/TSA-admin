@@ -90,6 +90,7 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
   };
 
   const handleLimitChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setPage(0);
     setLimit(parseInt(event.target.value));
   };
 

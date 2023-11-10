@@ -1,12 +1,5 @@
 import PropTypes from 'prop-types';
-import {
-  Box,
-  DialogTitle,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Button
-} from '@mui/material';
+import { Box, DialogTitle, Dialog, DialogContent } from '@mui/material';
 
 function DetailModal(props) {
   const { onClose, data, open } = props;
@@ -70,9 +63,6 @@ function DetailModal(props) {
           </text>
         </Box>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-      </DialogActions>
     </Dialog>
   );
 }

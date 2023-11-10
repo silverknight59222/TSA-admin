@@ -243,7 +243,6 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
         params: { search: searchTerm }
       })
       .then((res) => {
-        console.log(res.data);
         setProgramDatas(res.data);
       })
       .catch((error) => console.log('*******err', error.data));
@@ -259,14 +258,17 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
       const timer = setInterval(() => {
         getList();
         if (trainId)
-          axios.get(`/api/train/${trainId}`).then((res) => {
-            if (res.data[0].status == 'completed') {
-              successNotification('Training is done.');
-              getList();
-              setTrainId(0);
-            }
-          });
-      }, 60000);
+          axios
+            .post(`/api/train/${trainId}`)
+            .then((res) => {
+              if (res.data[0].status == 'completed') {
+                successNotification('Training is done.');
+                getList();
+                setTrainId(0);
+              }
+            })
+            .catch(() => setTrainId(0));
+      }, 10000);
       return () => {
         clearInterval(timer);
       };
@@ -276,6 +278,7 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
   const onTrain = () => {
     if (selectedprogramDatas.length) {
     } else {
+      setTrainId(1);
       axios
         .post('/api/train', { program_id: id })
         .then((train) => {
@@ -289,11 +292,11 @@ const ProgramTable: FC<ProgramDataTableProps> = ({ id }) => {
                   successNotification('Training is started.');
                   getList();
                 })
-                .catch((error) => console.log('*******err', error));
+                .catch(() => setTrainId(0));
             })
-            .catch((error) => console.log('*******err', error));
+            .catch(() => setTrainId(0));
         })
-        .catch((error) => console.log('*******err', error));
+        .catch(() => setTrainId(0));
     }
   };
 

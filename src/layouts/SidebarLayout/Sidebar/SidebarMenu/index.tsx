@@ -15,7 +15,10 @@ import { SidebarContext } from 'src/contexts/SidebarContext';
 
 // import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
 // import BrightnessLowTwoToneIcon from '@mui/icons-material/BrightnessLowTwoTone';
-import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
+// import TableChartTwoToneIcon from '@mui/icons-material/TableChartTwoTone';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import AppsIcon from '@mui/icons-material/Apps';
+import HistoryIcon from '@mui/icons-material/History';
 import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 
 const MenuWrapper = styled(Box)(
@@ -232,7 +235,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<ModelTrainingIcon />}
+                    startIcon={<AppsIcon />}
                   >
                     Program Management
                   </Button>
@@ -288,7 +291,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<TableChartTwoToneIcon />}
+                    startIcon={<ChatBubbleOutlineIcon />}
                   >
                     Chat History
                   </Button>
@@ -303,7 +306,7 @@ function SidebarMenu() {
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<ModelTrainingIcon />}
+                    startIcon={<HistoryIcon />}
                   >
                     Train History
                   </Button>

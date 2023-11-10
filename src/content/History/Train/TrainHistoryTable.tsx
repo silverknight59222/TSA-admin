@@ -20,14 +20,13 @@ import {
   Button,
   TextField
 } from '@mui/material';
-import { TrainHistoryData, TrainStatus } from '@/models/train_history';
+import { TrainHistoryData } from '@/models/train_history';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import SearchIcon from '@mui/icons-material/Search';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { styled } from '@mui/material/styles';
 import DeleteModal from './DeleteModal';
 import DetailModal from './DetailModal';
-import Label from '@/components/Label';
 import { format } from 'date-fns';
 
 interface TrainHistoryTalbeProps {
@@ -91,9 +90,9 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
   };
 
   const handleLimitChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setPage(0);
     setLimit(parseInt(event.target.value));
   };
-
   const paginatedhisotryDatas = applyPagination(hisotryDatas, page, limit);
   const selectedSomehisotryDatas =
     selectedHistoryDatas.length > 0 &&
@@ -130,29 +129,6 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
   useEffect(() => {
     getList();
   }, [detailModalOpen, deleteModalOpen]);
-
-  const getStatusLabel = (TrainStatus: TrainStatus): JSX.Element => {
-    const map = {
-      failed: {
-        text: 'Failed',
-        color: 'error'
-      },
-      completed: {
-        text: 'Completed',
-        color: 'success'
-      },
-      undefined: {
-        text: 'Pending',
-        color: 'warning'
-      },
-      training: {
-        text: 'Training',
-        color: 'primary'
-      }
-    };
-    const { text, color }: any = map[TrainStatus];
-    return <Label color={color}>{text}</Label>;
-  };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -230,7 +206,6 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
               <TableCell align="center">Actions</TableCell>
               <TableCell align="center">Name</TableCell>
               <TableCell align="center">ProgramName</TableCell>
-              <TableCell align="center">Status</TableCell>
               <TableCell align="center">Start</TableCell>
               <TableCell align="center">End</TableCell>
             </TableRow>
@@ -312,16 +287,6 @@ const TrainHistoryTable: FC<TrainHistoryTalbeProps> = () => {
                       noWrap
                     >
                       {item.program_name}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center" size="small">
-                    <Typography
-                      variant="body1"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {getStatusLabel(item.status)}
                     </Typography>
                   </TableCell>
                   <TableCell align="center" size="small">

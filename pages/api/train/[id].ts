@@ -37,6 +37,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         console.log(error.message);
         return res.status(400).json({ message: error.message });
       }
+    case 'POST':
+      try {
+        const querys = `SELECT * from train WHERE id = ${query.id}`;
+        const response = await db.query(querys);
+        return res.json(response);
+      } catch (error: any) {
+        return res.status(400).json({ message: error.message });
+      }
     case 'DELETE':
       try {
         const querys = `UPDATE train SET is_deleted = true WHERE id = ${query.id}`;

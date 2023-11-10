@@ -3,9 +3,7 @@ import {
   Box,
   DialogTitle,
   Dialog,
-  DialogActions,
   DialogContent,
-  Button,
   Table,
   TableCell,
   TableHead,
@@ -36,7 +34,6 @@ function DetailModal(props) {
     if (data.id) {
       axios.get(`/api/train/${data.id}`).then((res) => {
         setList(res.data);
-        console.log(res.data);
         setItem(res.data[0]);
       });
     }
@@ -160,9 +157,6 @@ function DetailModal(props) {
           </TableBody>
         </Table>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-      </DialogActions>
     </Dialog>
   );
 }
