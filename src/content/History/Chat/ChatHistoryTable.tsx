@@ -320,8 +320,8 @@ const ChatHistoryTable: FC<ChatHistoryTalbeProps> = () => {
                       gutterBottom
                       noWrap
                     >
-                      {item.content.length > 50
-                        ? item.content.substring(0, 100) + '...'
+                      {item.content.length > 80
+                        ? item.content.substring(0, 80) + '...'
                         : item.content}
                     </Typography>
                   </TableCell>

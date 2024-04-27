@@ -17,15 +17,12 @@ export default async function handle(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  console.log('**** req', request.body);
   if (request.method === 'POST') {
     const email = request.body;
 
     try {
       // Check for user existence
       const user = await getUser(email);
-
-      console.log('***** user', user);
 
       if (!user) {
         response
@@ -47,7 +44,6 @@ export default async function handle(
 
       // Create a token id
       const securedTokenId = nanoid(32);
-      console.log(securedTokenId);
       // Store token in DB
       insertToken({
         user_id: user.id,
@@ -55,11 +51,8 @@ export default async function handle(
         created_at: Date.now() / 1000
       })
         .then((res) => {
-          console.log('**** token insertToken', res);
           if (res) {
             const link = `${process.env.NEXTAUTH_URL}/reset-password/${securedTokenId}`;
-
-            console.log('**** link', link);
 
             transporter
               .sendMail({
@@ -81,7 +74,6 @@ export default async function handle(
             `
               })
               .then((res) => {
-                console.log('*** sendMail res', res);
                 if (res) {
                   response.status(200).json({ success: true });
                 }
@@ -116,7 +108,6 @@ export default async function handle(
     } else {
       // Get token from DB
       token = await getTokenByToken(tokenId);
-      console.log('*** token', token);
 
       if (!token) {
         return response.status(404).json({
@@ -131,7 +122,6 @@ export default async function handle(
     const hashedPassword = await hashPassword(password);
     updateUserPassword(hashedPassword, user_id)
       .then((res) => {
-        console.log('**** updateUserPassword', res);
         if (res) {
           if (token) {
             deleteToken(token.id)

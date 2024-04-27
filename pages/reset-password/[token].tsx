@@ -38,7 +38,6 @@ const LoginPage = () => {
   // ** State
   const { data } = useSession();
   const user = data?.user;
-  console.log('**** user', user);
   const [values, setValues] = useState<State>({
     password: '',
     showPassword: false
@@ -72,7 +71,6 @@ const LoginPage = () => {
       }
     })
       .then((res) => {
-        console.log('*** res', res);
         if (res.status === 200) {
           successNotification('Password is reset');
           router.replace('/');
@@ -83,7 +81,6 @@ const LoginPage = () => {
         }
       })
       .catch((error) => {
-        console.log('Error: ', error);
         errorNotification('Please try again');
       })
       .finally(() => {
@@ -230,7 +227,6 @@ export default LoginPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
-  console.log('********* generation serverside');
 
   if (!!(session?.user as any)?.accessToken) {
     let route = '';

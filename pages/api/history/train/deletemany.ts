@@ -7,7 +7,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'POST':
       try {
-        console.log('body', body);
         const response = await Promise.all(
           body.ids.map(async (item) => {
             const query = `UPDATE train_history SET is_deleted = true WHERE id = ${item}`;

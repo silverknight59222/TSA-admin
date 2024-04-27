@@ -315,6 +315,34 @@ function SidebarMenu() {
             </List>
           </SubMenuWrapper>
         </List>
+        <List
+          component="div"
+          subheader={
+            <ListSubheader component="div" disableSticky>
+              Other Management
+            </ListSubheader>
+          }
+        >
+          <SubMenuWrapper>
+            <List component="div">
+              <ListItem component="div">
+                <NextLink href="/other/feedback" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/other/feedback' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<ChatBubbleOutlineIcon />}
+                  >
+                    Feedback
+                  </Button>
+                </NextLink>
+              </ListItem>
+            </List>
+          </SubMenuWrapper>
+        </List>
       </MenuWrapper>
     </>
   );

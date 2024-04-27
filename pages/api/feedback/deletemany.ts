@@ -9,7 +9,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       try {
         const response = await Promise.all(
           body.ids.map(async (item) => {
-            const query = `UPDATE chat_history SET is_deleted = true WHERE id = ${item}`;
+            const query = `UPDATE feedback SET is_deleted = true WHERE id = ${item}`;
             await db.query(query);
           })
         );

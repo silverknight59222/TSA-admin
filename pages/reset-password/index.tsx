@@ -32,14 +32,12 @@ const LoginPage = () => {
   // ** State
   const { data } = useSession();
   const user = data?.user;
-  console.log('**** user', user);
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
   const authenticate = async () => {
     setLoading(true);
-    console.log('**** email reset', JSON.stringify(email));
 
     await fetch('/api/reset-password', {
       method: 'POST',
@@ -58,7 +56,6 @@ const LoginPage = () => {
         } else {
           errorNotification('Please try again!');
         }
-        console.log('** reset pass', res);
       })
       .catch((error) => console.log('Error: ', error))
       .finally(() => {
@@ -167,7 +164,6 @@ export default LoginPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
-  console.log('********* generation serverside');
 
   if (!!(session?.user as any)) {
     let route = '';

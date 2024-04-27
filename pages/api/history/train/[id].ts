@@ -7,7 +7,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'DELETE':
       try {
-        console.log(query);
         const querys = `UPDATE chat_history SET is_deleted = true WHERE id = ${query.id}`;
         const response = await db.query(querys);
         return res.json(response);

@@ -30,7 +30,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         const response = await db.query(querys);
         return res.json(response);
       } catch (error: any) {
-        console.log(error.message);
         return res.status(400).json({ message: error.message });
       }
     case 'POST':

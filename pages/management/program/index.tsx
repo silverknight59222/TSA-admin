@@ -10,7 +10,7 @@ function ApplicationsTransactions() {
   return (
     <>
       <Head>
-        <title>Data Management</title>
+        <title>Program Management</title>
       </Head>
       <Grid container direction="row" padding={1}>
         <Grid
@@ -35,7 +35,6 @@ ApplicationsTransactions.getLayout = (page) => (
 export default ApplicationsTransactions;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
-  console.log('********* login serverside ', session);
   if (!session) {
     return {
       redirect: {

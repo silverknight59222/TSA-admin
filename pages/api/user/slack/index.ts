@@ -60,11 +60,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }
     case 'GET':
       try {
-        const querys = `select * from slack_user where id = '${query.id}'`;
+        console.log('sdsdsds');
+        const querys = `select * from slack_user where deleted = false and is_bot = false`;
         const response = await db.query(querys);
+        console.log(response);
         return res.json(response);
       } catch (error: any) {
-        return res.status(400).json([error.message, query, query.id]);
+        console.log(error.message);
+        return res.status(400).json(error.message);
       }
     case 'PUT':
       try {

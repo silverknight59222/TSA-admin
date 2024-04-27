@@ -152,7 +152,6 @@ export default HeaderUserbox;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
-  console.log('********* login serverside ', session);
   if (!session) {
     return {
       redirect: {

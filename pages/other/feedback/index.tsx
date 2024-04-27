@@ -2,25 +2,27 @@ import Head from 'next/head';
 import SidebarLayout from '@/layouts/SidebarLayout';
 import { Grid } from '@mui/material';
 import Footer from '@/components/Footer';
-import TrainHistoryTable from '@/content/History/Train/TrainHistoryTable';
 import { GetServerSidePropsContext } from 'next/types';
 import { getSession } from 'next-auth/react';
+import Feedback from '@/content/Other/feedback/Feedback';
 
 function ApplicationsTransactions() {
   return (
     <>
       <Head>
-        <title>Train History Management</title>
+        <title>Feedback Management</title>
       </Head>
-      <Grid
-        style={{
-          backgroundColor: 'white',
-          height: '100%',
-          width: '100%',
-          padding: '8px'
-        }}
-      >
-        <TrainHistoryTable />
+      <Grid container direction="row" padding={1} flexWrap={'nowrap'}>
+        {/* <Grid
+          style={{
+            backgroundColor: 'white',
+            height: '100%',
+            width: '100%',
+            padding: '8px'
+          }}
+        > */}
+        <Feedback />
+        {/* </Grid> */}
       </Grid>
       <Footer />
     </>
